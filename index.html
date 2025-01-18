@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestionnaire de projets</title>
+
+    <script src="main.js"></script>
+    <link href="main.css" rel="stylesheet" />
+
+    <script src="pages/accueil.js"></script>
+    <script src="pages/clients.js"></script>
+    <link href="pages/clients.css" rel="stylesheet" />
+
+    <script src="home.js"></script>
+    <link href="home.css" rel="stylesheet" />
+    
+    <script src="debug.js"></script>
+
+    <link href="res/favicon.png" rel="icon" />
+    <!--<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+</head>
+
+
+<body>
+    <div id="sidebar" class="">
+        <div id="sidebar_title">
+            <img id="sidebar_logo" src="res/logo_trans.png"/>
+            <h1>Gestionnaire de<br/>Projets</h1>
+        </div>
+
+        <i onclick="switchSidebar();" id="sidebar_rdbt" class="fa-solid fa-circle-chevron-right"></i>
+
+        <div id="sidebt_ctn">
+            <button onclick="goTo(this.id);" id="accueil" class="sidebt active"><i class="fa-solid fa-house"></i><span class="text"> Accueil</span></button>
+            <button onclick="goTo(this.id);" id="clients" class="sidebt"><i class="fa-solid fa-users"></i><span class="text"> Clients</span></button>
+            <button onclick="goTo(this.id);" id="devis" class="sidebt"><i class="fa-solid fa-file-invoice"></i><span class="text"> Devis</span></button>
+            <button onclick="goTo(this.id);" id="factures" class="sidebt"><i class="fa-solid fa-file-invoice-dollar"></i><span class="text"> Factures</span></button>
+            <button onclick="goTo(this.id);" id="finance" class="sidebt"><i class="fa-solid fa-sack-dollar"></i><span class="text"> Finance</span></button>
+            <button onclick="goTo(this.id);" id="signature" class="sidebt" ><i class="fa-solid fa-file-signature"></i><span class="text"> Signatures</span></button>
+            <button onclick="goTo(this.id);" id="rapport" class="sidebt"><i class="fa-solid fa-chart-simple"></i><span class="text"> Rapport</span></button>
+            <button onclick="goTo(this.id);" id="profile" class="sidebt" ><i class="fa-solid fa-user-gear"></i><span class="text"> Profil</span></button>
+            
+            <button onclick="logout();" class="sidebt" style="margin-top: 2em;"><i class="fa-solid fa-arrow-right-from-bracket"></i><span class="text"> Déconnexion</span></button>
+
+            <button onclick="toggleDbg();" class="sidebt" style="margin-top: 1em;"><i class="fa-solid fa-border-none"></i><span class="text"> Debug Borders</span></button>
+        </div>
+
+        <i onclick="changeTheme('dark');" id="dark_mode" class="active mode_bt fa-solid fa-moon"></i>
+        <i onclick="changeTheme('light');" id="light_mode" class="mode_bt fa-solid fa-sun"></i>
+    </div>
+
+
+    <div id="modal_background" class="" onclick="closeLastModal(true);"></div>
+    <modal id="confirm_modal" class="template">
+        <svg class="closebt" onclick="closeModal(this.parentNode, true);" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM8.96965 8.96967C9.26254 8.67678 9.73742 8.67678 10.0303 8.96967L12 10.9394L13.9696 8.96969C14.2625 8.6768 14.7374 8.6768 15.0303 8.96969C15.3232 9.26258 15.3232 9.73746 15.0303 10.0303L13.0606 12L15.0303 13.9697C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73744 15.3232 9.26256 15.3232 8.96967 15.0303C8.67678 14.7374 8.67678 14.2626 8.96967 13.9697L10.9393 12L8.96965 10.0303C8.67676 9.73744 8.67676 9.26256 8.96965 8.96967Z"></path> </g></svg>
+        
+        <h1>TITLE</h1>
+        <button>Oui</button>
+        <button>Non</button>
+    </modal>
+
+
+    <div id="main">
+        <div id="section_header_ctn">
+            <i id="back_bt" class="fa-solid fa-chevron-left"></i>
+            <h1 id="section_title">Accueil</h1>
+        </div>
+
+        <section id="accueil" data-title="Accueil" class="">
+            <div class="card bignumber">
+                <h1>Chiffre d'affaire de l'année en cours</h1>
+                <content>
+                    <p>2000 €</p>
+                </content>
+            </div>
+    
+            <div class="card bignumber">
+                <h1>Chiffre d'affaire de l'année en cours</h1>
+                <content>
+                    <p>2000 €</p>
+                </content>
+            </div>
+    
+            <div class="card bignumber">
+                <h1>Chiffre d'affaire de l'année en cours</h1>
+                <content>
+                    <p>2000 €</p>
+                </content>
+            </div>
+        </section>
+    
+        <section id="clients" data-title="Clients">
+            <!--<div id="cctn" class="ag-theme-quartz">
+
+            </div>-->
+
+            <table id="clients_ctn" class="table">
+                <thead>
+                    <tr id="clients_filters" class="table_filters">
+                        <th class="filter asc" data-field="name"><span onclick="clientsSort(this.parentNode.getAttribute('data-field'));">Nom </span></th>
+                        <th class="filter" data-field="declared"><span onclick="clientsSort(this.parentNode.getAttribute('data-field'));">Déclaré </span></th>
+                        <th class="filter" data-field="tgain"><span onclick="clientsSort(this.parentNode.getAttribute('data-field'));">Gain Total </span></th>
+                        <th class="filter" data-field="ttime"><span onclick="clientsSort(this.parentNode.getAttribute('data-field'));">Temps Total </span></th>
+                        <th class="filter" data-field="type"><span onclick="clientsSort(this.parentNode.getAttribute('data-field'));">Type </span></th>
+                    </tr>
+                </thead>
+                
+                <tbody></tbody>
+            </table>
+
+            <svg title="Ajouter un client" class="bradd" onclick="addclient();" id="addclient" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>
+        </section>
+        <subsection id="client" data-parent="clients" data-title="Client">
+            <div id="sides" class="fullctn">
+                <div class="left_side">
+                    <div class="cards_group">
+                        <div id="tg_card" class="card bignumber sea">
+                            <h1>Revenu Total Net</h1>
+                            <content>
+                                <p><span class="value">2000</span> €</p>
+                            </content>
+                        </div>
+            
+                        <div id="mnb_card" class="card bignumber sea">
+                            <h1>Nombre de missions</h1>
+                            <content>
+                                <p class="value">53</p>
+                            </content>
+                        </div>
+                    </div>
+                    <div class="cards_group">
+                        <div id="thr_card" class="card bignumber sea">
+                            <h1>Total d'heures travaillées</h1>
+                            <content>
+                                <p><span class="value">183</span>h</p>
+                            </content>
+                        </div>
+            
+                        <div id="bcr_card" class="card bignumber sea">
+                            <h1>Rang meilleur client</h1>
+                            <content>
+                                <p class="value">3<sup>ème</sup></p>
+                            </content>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="right_side">
+                    <div class="field_block">
+                        <label for="client_name">Nom</label>
+                        <input onkeyup="this.onchange();" onchange="clientChange('name', this.value);" class="client_details_inp" type="text" id="client_name"></input>
+                    </div>
+                    
+                    <div class="field_block">
+                        <label for="client_adress">Adresse</label>
+                        <input onkeyup="this.onchange();" onchange="clientChange('adress', this.value);" class="client_details_inp" type="text" id="client_adress"></input>
+                    </div>
+    
+                    <div class="field_block">
+                        <label for="client_hr">Taux horaire</label>
+                        <input onkeyup="this.onchange();" onchange="clientChange('hourly_rate', this.value);" class="client_details_inp" type="number" min="0" max="300" id="client_hr"></input>
+                    </div>
+    
+                    <div class="field_block inline">
+                        <p id="sw_title">Déclaré : </p>
+    
+                        <div class="sw_ctn">
+                            <input onchange="clientChange('declared', this.checked);" type="checkbox" id="client_declared"></input>
+                            <label class="sw_label" for="client_declared"></label>
+                        </div>
+                    </div>
+
+                    <button id="delclient" class="wide">Delete Client  <i class="fa-solid fa-trash"></i></button>
+                </div>
+
+                <svg title="Ajouter une mission" onclick="addmission();" id="addmission" class="bradd" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>
+            </div>
+
+            <div class="fullctn">
+                <table id="projects_ctn" class="table">
+                    <thead>
+                        <tr id="projects_filters" class="table_filters">
+                            <th class="filter asc" data-field="name"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Nom </span></th>
+                            <th class="filter" data-field="creation_date"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Date de création </span></th>
+                            <th class="filter" data-field="invoice"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Facture </span></th>
+                            <th class="filter" data-field="invoice_date"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Date de facturation </span></th>
+                            <th class="filter" data-field="paid"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Montant </span></th>
+                            <th class="filter" data-field="received"><span onclick="projectsSort(this.parentNode.getAttribute('data-field'));">Montant Net </span></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </subsection>
+        <subsection id="mission" data-parent="clients" data-title="Mission">
+            <div id="sides" class="fullctn">
+                <div class="left_side">
+                    <div class="cards_group">
+                        <div id="tg_card" class="card bignumber sea">
+                            <h1>Revenu Total Net</h1>
+                            <content>
+                                <p><span class="value">2000</span> €</p>
+                            </content>
+                        </div>
+            
+                        <div id="mnb_card" class="card bignumber sea">
+                            <h1>Nombre de missions</h1>
+                            <content>
+                                <p class="value">53</p>
+                            </content>
+                        </div>
+                    </div>
+                    <div class="cards_group">
+                        <div id="thr_card" class="card bignumber sea">
+                            <h1>Total d'heures travaillées</h1>
+                            <content>
+                                <p><span class="value">183</span>h</p>
+                            </content>
+                        </div>
+            
+                        <div id="bcr_card" class="card bignumber sea">
+                            <h1>Rang meilleur client</h1>
+                            <content>
+                                <p class="value">3<sup>ème</sup></p>
+                            </content>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="right_side">
+                    <div class="field_block">
+                        <label for="project_name">Nom</label>
+                        <input class="client_details_inp" type="text" id="project_name"></input>
+                    </div>
+                    
+                    <div class="field_block">
+                        <label for="project_desc">Description</label>
+                        <textarea class="client_details_inp details_textarea" id="project_desc">
+
+                        </textarea>
+                    </div>
+
+                    <button id="delproject" class="wide">Delete Project  <i class="fa-solid fa-trash"></i></button>
+                </div>
+
+                <svg title="Ajouter une mission" onclick="addtask();" id="addtask" class="bradd" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>
+            </div>
+        </subsection>
+    
+        <section id="devis" data-title="Devis">
+            
+        </section>
+        
+        <section id="factures" data-title="Factures">
+            
+        </section>
+    
+        <section id="finance" data-title="Finances">
+            
+        </section>
+    
+        <section id="rapport" data-title="Rapport">
+            
+        </section>
+
+        <section id="signature" data-title="Signatures"></section>
+            
+        </section>
+
+        <section id="profile" data-title="Profil"></section>
+            
+        </section>
+    </div>
+</body>
+</html>
