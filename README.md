@@ -18,3 +18,4 @@ Logiciel de gestion de projet, comptabilité et signature électronique
 - Electronic signature
 - Quotation & Invoice generator
 - Quotation & Invoice editor
+- Settings page (theme, colors, homepage)

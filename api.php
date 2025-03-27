@@ -561,6 +561,20 @@ else if ($a == "clientreport") {
 
 
 
+else if ($a == "tasks") {
+    [$pid] = mdtpi(["project_id"]);
+    $uid = vtki($tk);
+
+    $r = req("SELECT * FROM tasks WHERE project_id=:pid", array(
+        "pid"=> $pid
+    ))[0];
+
+    ok($r);
+}
+
+
+
+
 else if ($a == "project") {
     [$pid] = mdtpi(["project_id"]);
     $uid = vtki($tk);
