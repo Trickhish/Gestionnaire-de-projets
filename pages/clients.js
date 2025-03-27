@@ -1,3 +1,5 @@
+var clients = null;
+
 class Client {
     constructor(obj) {
         obj && Object.assign(this, obj);
@@ -57,6 +59,8 @@ function checkClients(cl) {
     }
 }
 
+
+
 function clientsSort(f, s=null) {
     var e = document.querySelector("#clients_ctn .filter[data-field='"+f+"']");
 
@@ -95,15 +99,21 @@ function clientsSort(f, s=null) {
     }), e.classList.contains("asc"));
 }
 
+
+
 function getClient(cid) {
     return( clients.value.find((e)=> e.id==cid) );
 }
+
+
 
 function viewClient(cid) {
     goTo("client", false, {
         "client_id": cid
     });
 }
+
+
 
 function addclient() {
     // https://acc.dury.dev/api/addclient
@@ -118,6 +128,8 @@ function addclient() {
     });
 }
 
+
+
 function delclient(cid) {
     var cl = clientInfos[cid];
 
@@ -131,11 +143,13 @@ function delclient(cid) {
     });
 }
 
+
+
 function clients_load() {
     //clientsTable = agGrid.createGrid(document.getElementById("cctn"), clientsTableParams);
 
     clients.updateThen((r)=>{
-        clientsSort("name", "asc");
+        //clientsSort("name", "asc");
         
         /*if (window.location.hash.split("#").length > 2) {
             var subs = window.location.hash.split("#")[2];
@@ -154,10 +168,14 @@ function clients_load() {
     });
 }
 
+
+
 /*window.addEventListener('popstate', (e)=>{
     console.log("RELOADING CLIENTS");
     clients.update();
 });*/
+
+
 
 function clientChange(field, vl) {
     if (clientUpdate!=null) {
@@ -176,6 +194,6 @@ function clientChange(field, vl) {
     }, 200);
 }
 
-var clients = new Ressource("clients", new Fetch("clients", {}, ["clients"], "GET"), false, 30, null, (e)=>{
+clients = new Ressource("clients", new Fetch("clients", {}, ["clients"], "GET"), false, 30, null, (e)=>{
     return(new Client(e));
 }, checkClients);

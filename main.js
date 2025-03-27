@@ -558,6 +558,15 @@ function confirma(msg, o=()=>{}, n=()=>{}, cc=()=>{}) {
     });
 }
 
+function setCardContent(card, title=null, body=null) {
+    if (title!=null) {
+        card.querySelector("h1").innerHTML = title;
+    }
+    if (body!=null) {
+        card.querySelector(".value").innerHTML = body;
+    }
+}
+
 window.addEventListener("load", ()=>{
     if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && localStorage.getItem("theme")==null) || localStorage.getItem('theme')=="dark") {
         changeTheme('dark');

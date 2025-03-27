@@ -1,19 +1,52 @@
 var tables = {};
 
 class Table {
-    constructor(name, headers=null, data=null) {
+    constructor(name, headers=null, data=null, rowClick=()=>{}) {
         this.name = name;
         this.data = data;
         this.headers=headers;
         this.element=null;
+        this.rowClick=rowClick;
 
         if (tables[name]) {
             return(tables[name]);
         }
         tables[name]=this;
+
+        console.log(`New table '${name}'`);
     }
 
-    fillTable(headers=null, data=null) {
+    static fromName(name, headers=null, data=null, rowClick=()=>{}) {
+        if (tables[name]) {
+            if (headers!=null) {
+                tables[name].headers=headers;
+            }
+            if (data!=null) {
+                tables[name].data=data;
+            }
+            return(tbl);
+        }
+        return(new Table(name, headers, data, rowClick));
+    }
+
+    static exists(name) {
+        for (let tbl of tables) {
+            if (tbl.name==name) {
+                return(true);
+            }
+        }
+        return(false);
+    }
+
+    place(parent, headers=null, data=null) {
+        if (this.element==null) {
+            parent.appendChild(this.buildTable(headers, data));
+        } else {
+            this.fillTable(headers, data);
+        }
+    }
+
+    fillTable(headers=null, data=null, ) {
         if (data!=null) {
             this.data=data;
         }
@@ -25,7 +58,7 @@ class Table {
         }
 
         var tr = this.element.querySelector("thead tr");
-        while (tr.firstChild) {
+        while (tr.firstChild) { // Deleting all header elements
             tr.lastChild.remove();
         }
         for (let [hd, hdd] of this.headers) {
@@ -36,16 +69,20 @@ class Table {
             tr.appendChild(th);
         }
 
-        console.log(this.data);
-
         var tbd = this.element.querySelector("tbody");
         while (tbd.firstChild) {
             tbd.lastChild.remove();
         }
         if (Array.isArray(this.data[0])) { // list
+            console.log("Table data is list");
+
             for (let dt of this.data) {
                 var tr = document.createElement("tr");
-    
+                tr.addEventListener("click", ()=>{
+                    //console.log(`${dt["id"]} clicked`);
+                    this.rowClick(dt);
+                });
+
                 var i=0;
                 for (let v of dt) {
                     var td = document.createElement("td");
@@ -58,17 +95,26 @@ class Table {
                 tbd.appendChild(tr);
             }
         } else { // dictionnary
+            console.log("Table data is dictionnary");
+
             for (let dt of this.data) {
                 var tr = document.createElement("tr");
+                tr.addEventListener("click", ()=>{
+                    //console.log(`${dt["id"]} clicked`);
+                    this.rowClick(dt);
+                });
+                //console.log(dt);
     
-                for (let [hd, hdd] of this.headers) {
+                for (let [hd, hdd] of this.headers) { // [key, dispName]
+                    var td = document.createElement("td");
+                    td.className = this.name+"_"+hd;
+                    
                     if (dt[hd]) {
-                        var td = document.createElement("td");
-                        td.className = this.name+"_"+hd;
                         td.innerHTML = dt[hd];
-    
-                        tr.appendChild(td);
+                    } else {
+                        //console.log(`Didn't find ${hd}`);
                     }
+                    tr.appendChild(td);
                 }
                 tbd.appendChild(tr);
             }
@@ -85,7 +131,7 @@ class Table {
 
         var table = document.createElement("table");
         table.className="table";
-        table.id  = this.name+"_ctn"
+        table.id  = this.name+"_table"
 
         var thead = document.createElement("thead");
         let tr = document.createElement("tr");

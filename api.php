@@ -7,12 +7,20 @@ $bdd = NULL;
 $dbg = !empty($_GET["dbg"]);
 $tet = microtime(true);
 
-if (empty($_GET["dbg"])) {
+if (!$dbg) {
     error_reporting(0);
 } else {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
+}
+
+function debug($msg) {
+    global $dbg;
+
+    if ($dbg) {
+        echo($msg);
+    }
 }
 
 function listformat($l) {
@@ -383,10 +391,20 @@ else if ($a == "vtk") {
 
 
 
+
+else if ($a == "globaldata") {
+    $uid = vtki($tk);
+
+    
+}
+
+
+
+
 else if ($a == "clients") {
     $uid = vtki($tk);
 
-    $r = req("SELECT * FROM clients WHERE user_id=:uid", array("uid"=> $uid))[0];
+    $r = req("SELECT * FROM clients WHERE user_id=:uid ORDER BY name ASC", array("uid"=> $uid))[0];
 
     for($i=0; $i<count($r); $i++) {
         $cr = clientReport($r[$i]["id"], $uid);
@@ -426,30 +444,43 @@ else if ($a == "setvalue") {
     [$id, $tb, $f, $v] = mdtpi(["id", "table", "field", "value"]);
     $uid = vtki($tk);
 
-    $tables = array(
-        "client"=> ["user_id", "clients", ["name", "adress", "hourly_rate", "declared", "show_taxes", "type"]],
-        "project"=> ["user_id", "projects", ["name", "description"]],
-        "task"=> ["user_id", "tasks", ["name", "done", "price"]],
-        "user"=> ["id", "users", []]
+    $tables = array( # key => [table, columns, conditions, variables]
+        "client"=> ["clients", ["name", "adress", "hourly_rate", "declared", "show_taxes", "type"], ["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "project"=> ["projects", ["name", "description"], ["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "task"=> ["tasks", ["name", "done", "price", "description"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
+            "uid"=>$uid
+        )],
+        "user"=> ["users", [], ["id=:uid"], array(
+            "uid"=>$uid
+        )]
     );
 
     if (!array_key_exists($tb, $tables)) {
         err("unknown_error", "Unknown table", 400);
     }
 
-    if (!in_array($f, $tables[$tb][2])) {
+    if (!in_array($f, $tables[$tb][1])) {
         err("unknown_column_name", "This column doesn't exist", 400);
     }
 
     $v=(($v===true || $v==="true") ? 1 : (($v===false || $v==="false") ? 0 : $v));
 
-    $chf = $tables[$tb][0];
-    $atb = $tables[$tb][1];
-    [$r, $enb] = req("UPDATE $atb SET $f=:v WHERE id=:id AND $chf=:uid", array(
-        "uid"=>$uid,
-        "v"=>$v,
-        "id"=>$id
-    ));
+
+    $atb = $tables[$tb][0];
+    
+    $params = $tables[$tb][3];
+    $params["id"]=$id;
+    $params["v"]=$v;
+
+    $conds = $tables[$tb][2];
+    array_unshift($conds, "id=:id");
+    $conds = implode(" AND ", $conds);
+
+    [$r, $enb] = req("UPDATE $atb SET $f=:v WHERE $conds", $params);
 
     if ($enb > 0) {
         ok();
@@ -466,27 +497,39 @@ else if ($a == "getvalue") {
     [$id, $tb, $f] = mdtpi(["id", "table", "field"]);
     $uid = vtki($tk);
 
-    $tables = array(
-        "client"=> ["user_id", "clients", ["name", "adress", "hourly_rate", "declared", "show_taxes", "type"]],
-        "project"=> ["user_id", "projects", ["name", "description"]],
-        "task"=> ["user_id", "tasks", ["name", "done", "price"]],
-        "user"=> ["id", "users", []]
+    $tables = array( # key => [table, columns, conditions, variables]
+        "client"=> ["clients", ["name", "adress", "hourly_rate", "declared", "show_taxes", "type"], ["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "project"=> ["projects", ["name", "description"], ["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "task"=> ["tasks", ["name", "done", "price", "description"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
+            "uid"=>$uid
+        )],
+        "user"=> ["users", [], ["id=:uid"], array(
+            "uid"=>$uid
+        )]
     );
 
     if (!array_key_exists($tb, $tables)) {
         err("unknown_error", "Unknown table", 400);
     }
 
-    if (!in_array($f, $tables[$tb][2])) {
+    if (!in_array($f, $tables[$tb][1])) {
         err("unknown_column_name", "This column doesn't exist", 400);
     }
 
-    $chf = $tables[$tb][0];
-    $atb = $tables[$tb][1];
-    [$r, $enb] = req("SELECT $f FROM $atb WHERE $chf=:uid AND id=:id", array(
-        "uid"=>$uid,
-        "id"=>$id
-    ));
+    $atb = $tables[$tb][0];
+    
+    $params = $tables[$tb][3];
+    $params["id"]=$id;
+
+    $conds = $tables[$tb][2];
+    array_unshift($conds, "id=:id");
+    $conds = implode(" AND ", $conds);
+
+    [$r, $enb] = req("SELECT $f FROM $atb WHERE $conds", $params);
 
     if ($enb > 0) {
         ok($r[0][$f]);
@@ -561,6 +604,8 @@ else if ($a == "clientreport") {
 
 
 
+
+
 else if ($a == "tasks") {
     [$pid] = mdtpi(["project_id"]);
     $uid = vtki($tk);
@@ -571,6 +616,50 @@ else if ($a == "tasks") {
 
     ok($r);
 }
+
+
+
+
+
+else if ($a == "task") {
+    [$tid] = mdtpi(["task_id"]);
+    $uid = vtki($tk);
+
+    $r = req("SELECT *,
+        (SELECT name FROM projects WHERE id=tasks.project_id LIMIT 1) as project_name FROM tasks WHERE 
+            id=:tid AND 
+            EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)
+        ", array(
+        "uid"=> $uid,
+        "tid"=> $tid
+    ))[0][0];
+
+    ok($r);
+}
+
+
+
+
+
+else if ($a == "addtask") {
+    [$pid] = mdtpi(["project_id"]);
+    $uid = vtki($tk);
+
+    //err("implementation_in_progress", "This endpoint is not finished yet", 501);
+
+    [$r, $enb, $tid] = req("INSERT INTO tasks (project_id) VALUES (:pid)", array(
+        "pid"=> $pid
+    ));
+
+    if ($pid !== null) {
+        ok(array(
+            "task_id"=> $tid
+        ));
+    } else {
+        err("unknown_error", "Unknown Error", 500);
+    }
+}
+
 
 
 
@@ -632,14 +721,32 @@ else if ($a == "delentry") {
     [$pid, $type] = mdtpi(["id", "type"]);
     $uid = vtki($tk);
 
-    if (!in_array($type, ["projects", "clients"])) {
-        err("unknown_item_type", "Unknown type '$type'");
+    $types = array(
+        "projects"=> [["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "clients"=> [["user_id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "tasks"=> [["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
+            "uid"=>$uid
+        )]
+    );
+
+    if (!array_key_exists($type, $types)) {
+        err("unknown_item_type", "Unknown entry type", 400);
     }
 
-    $enb = req("DELETE FROM $type WHERE id=:pid AND user_id=:uid;", array(
-        "uid"=> $uid,
-        "pid"=> $pid
-    ))[1];
+    $conds = $types[$type][0];
+    array_unshift($conds, "id=:pid");
+    $conds = implode(" AND ", $conds);
+
+    $params = $types[$type][1];
+    $params["pid"]=$pid;
+
+    debug($conds."<br/>".json_encode($params)."<br/>");
+
+    $enb = req("DELETE FROM $type WHERE $conds", $params)[1];
 
     if ($enb > 0) {
         ok();

@@ -53,7 +53,7 @@ function client_nav(params) {
     
         clientInfos[cid] = ci;
     } else {
-        projectsSort("creation_date", "desc");
+        //projectsSort("creation_date", "desc");
         ci.updateThen(()=>{
             update_values(ci);
         });

@@ -136,7 +136,7 @@ function loadHash() {
         }
     }
 
-    //console.log(`Going to ${pg}`);
+    console.log(`Going to ${pg}`);
     if (!goTo(pg, false, params)) {
         //console.log("NAV FAILED");
         goTo("accueil");

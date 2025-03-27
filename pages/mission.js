@@ -34,17 +34,41 @@ function mission_nav(params) {
         ci.update();
     }
 
-
     if (tasks[mid]==undefined) {
+        console.log(`Mission ${mid} first load`);
+
+        var c = document.querySelector("#mission .bottom");
+        var tbl = Table.fromName("tasks",
+            [["name","Nom"],["duration","Durée"],["done","Faite"],["price","Prix"]],
+            null,
+            (dt)=>{
+                goTo("task", false, {
+                    "task_id": dt["id"]
+                });
+            }
+        );
+
+        /*var tbl = new Table("tasks",
+            [["name","Nom"],["duration","Durée"],["done","Faite"],["price","Prix"]],
+            r,
+            (dt)=>{
+                console.log(dt);
+            }
+        );*/
+        
+        /*if (tbl.element==null) {
+            c.appendChild(tbl.buildTable());
+        } else {
+            tbl.fillTable();
+        }*/
+
+        // tbl.place(c, null, null);
+        // c.appendChild(tbl.buildTable(null, null));
+
         var mts = new Ressource(mid+"_tasks", new Fetch("tasks", {"project_id": mid}, [], "GET"), true, 30, null, (e)=>{
             return(e);
         }, (r)=>{
-            var c = document.querySelector("#mission .bottom");
-            var tbl = new Table("tasks", 
-                [["name","Nom"],["duration","Durée"],["done","Faite"],["price","Prix"]],
-                r
-            );
-            c.appendChild(tbl.buildTable());
+            tbl.place(c, null, r)
         });
 
         tasks[mid] = mts;
@@ -60,6 +84,26 @@ function mission_nav(params) {
 function addtask() {
     let mid = currentPage[1]["project_id"];
 
-    get();
-    tasks[mid].update();
+    get("addtask", {"project_id": mid}, (r)=>{
+        console.log(r);
+        tasks[mid].update();
+
+        goTo("task", false, {
+            "task_id": r["content"]["task_id"]
+        });
+    });
+
+
+    /*var cl = currentPage[1]["client"];
+
+    get("addproject", {"client_id": cl.id}, (r)=>{
+        clientProjects[cl.id].update();
+        console.log(r);
+
+        goTo("mission", false, {
+            "mission_id": r["content"]["project_id"]
+        });
+    }, (r)=>{
+        console.log(r);
+    });*/
 }
