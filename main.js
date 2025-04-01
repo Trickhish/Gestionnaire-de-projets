@@ -277,8 +277,25 @@ class Ressource {
     }
 }
 
+class MultiTask {
+    constructor(params, cb) {
+        this.params=params;
+        this.values = {};
+        this.cb=cb;
+    }
+
+    run(param, value) {
+        this.params = this.params.filter(e=> e!=param);
+        this.values[param]=value;
+
+        if (this.params.length==0) {
+            this.cb(this.values);
+        }
+    }
+}
+
 class bondInput {
-    constructor(elm, eid, table, field) {
+    constructor(elm, eid, table, field, oninit=()=>{}, onupdt=()=>{}) {
         this.type = elm.tagName;
         if (this.type=="INPUT" && elm.type=="checkbox") {
             this.type="CHECKBOX";
@@ -290,6 +307,9 @@ class bondInput {
         this.prevValue=null;
         this.changeTo=null;
 
+        this.oninit=oninit;
+        this.onupdt=onupdt;
+
         this.initBond();
     }
 
@@ -300,6 +320,7 @@ class bondInput {
             "field":this.field
         }, (r)=>{
             this.setValue(r["content"]);
+            this.oninit(r["content"]);
 
             this.node.onchange = (ev)=>{
                 this.change(ev);
@@ -327,6 +348,8 @@ class bondInput {
         if (this.changeTo!=null) {
             clearTimeout(this.changeTo);
         }
+
+        this.onupdt(vl);
 
         this.changeTo = setTimeout(()=>{
             post("setvalue", {

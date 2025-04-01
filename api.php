@@ -451,7 +451,7 @@ else if ($a == "setvalue") {
         "project"=> ["projects", ["name", "description"], ["user_id=:uid"], array(
             "uid"=>$uid
         )],
-        "task"=> ["tasks", ["name", "done", "price", "description"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
+        "task"=> ["tasks", ["name", "done", "price", "description", "started_at", "ended_at"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
             "uid"=>$uid
         )],
         "user"=> ["users", [], ["id=:uid"], array(
@@ -504,7 +504,7 @@ else if ($a == "getvalue") {
         "project"=> ["projects", ["name", "description"], ["user_id=:uid"], array(
             "uid"=>$uid
         )],
-        "task"=> ["tasks", ["name", "done", "price", "description"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
+        "task"=> ["tasks", ["name", "done", "price", "description", "started_at", "ended_at"], ["EXISTS(SELECT id FROM projects WHERE projects.id=tasks.project_id AND projects.user_id=:uid)"], array(
             "uid"=>$uid
         )],
         "user"=> ["users", [], ["id=:uid"], array(
@@ -517,7 +517,7 @@ else if ($a == "getvalue") {
     }
 
     if (!in_array($f, $tables[$tb][1])) {
-        err("unknown_column_name", "This column doesn't exist", 400);
+        err("unknown_column_name", "The column '$f' doesn't exist", 400);
     }
 
     $atb = $tables[$tb][0];

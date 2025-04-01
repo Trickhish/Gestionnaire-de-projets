@@ -1,5 +1,30 @@
 var tasks={};
 
+function updateDuration(stt, edt) {
+    var start = new Date(`1970-01-01T${stt}Z`);
+    var end = new Date(`1970-01-01T${edt}Z`);
+
+    let diffMs = end - start;
+
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    diffMs %= (1000 * 60 * 60);
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    diffMs %= (1000 * 60);
+    const seconds = Math.floor(diffMs / 1000);
+
+    var tms = "";
+    if (hours>0) {
+        tms=`${hours}h`;
+        if (minutes>0) {
+            tms+=`${minutes}m`;
+        }
+    } else {
+        tms=`${minutes}min`
+    }
+
+    document.querySelector("#task_duration .value").innerHTML = tms;
+}
+
 function task_nav(params) {
     var tid = params["task_id"];
 
@@ -11,7 +36,22 @@ function task_nav(params) {
             currentPage = ["task", {"task_id": tid, "task": r}];
             document.getElementById("section_title").innerText = (r.name??"New Task")+" - "+r.client_name;
 
+            var durt = new MultiTask(["start_time", "end_time"], (p)=>{                
+                updateDuration(p["start_time"], p["end_time"]);
+            });
+
             var tkn_bd = new bondInput(document.querySelector("subsection#task #task_name"), tid, "task", "name");
+            var tkst_bd = new bondInput(document.querySelector("subsection#task #task_started_at"), tid, "task", "started_at", (v)=>{
+                durt.run("start_time", v);
+            }, (v)=>{
+                durt.run("start_time", v);
+            });
+            var tket_bd = new bondInput(document.querySelector("subsection#task #task_ended_at"), tid, "task", "ended_at", (v)=>{
+                durt.run("end_time", v);
+            }, (v)=>{
+                durt.run("end_time", v);
+            });
+            var tkdn_bd = new bondInput(document.querySelector("subsection#task #task_done"), tid, "task", "done");
             var tkd_bd = new bondInput(document.querySelector("subsection#task #task_desc"), tid, "task", "description");
 
             document.querySelector("subsection#task .delbt").onclick = ()=>{
@@ -25,7 +65,7 @@ function task_nav(params) {
                 });
             };
 
-            console.log(r);
+            //console.log(r);
         });
         tasks[tid] = ci;
     } else {

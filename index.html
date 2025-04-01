@@ -6,6 +6,7 @@
 
     <script src="main.js"></script>
     <script src="tables.js"></script>
+    <link href="tables.css" rel="stylesheet" />
     <link href="main.css" rel="stylesheet" />
 
     <script src="pages/accueil.js"></script>
@@ -288,12 +289,29 @@
                 <label for="task_name">Nom</label>
                 <input class="client_details_inp" type="text" id="task_name"></input>
             </div>
+
+            <div class="field_block">
+                <label for="task_started_at">Heure de commencement</label>
+                <input class="" type="time" id="task_started_at">
+
+                <label for="task_ended_at">Heure de fin</label>
+                <input class="" type="time" id="task_ended_at">
+
+                <p id="task_duration">Durée: <span class="value"></span></p>
+            </div>
+
+            <div class="field_block inline">
+                <p id="sw_title">Faite : </p>
+
+                <div class="sw_ctn">
+                    <input type="checkbox" id="task_done"></input> <!-- onchange="clientChange('declared', this.checked);" -->
+                    <label class="sw_label" for="task_done"></label>
+                </div>
+            </div>
             
             <div class="field_block">
                 <label for="task_desc">Description</label>
-                <textarea class="client_details_inp details_textarea" id="task_desc">
-
-                </textarea>
+                <textarea class="client_details_inp details_textarea" id="task_desc"></textarea>
             </div>
 
             <button id="delbt" class="wide delbt">Delete Task <i class="fa-solid fa-trash"></i></button>

@@ -35,11 +35,12 @@ function mission_nav(params) {
     }
 
     if (tasks[mid]==undefined) {
-        console.log(`Mission ${mid} first load`);
-
         var c = document.querySelector("#mission .bottom");
         var tbl = Table.fromName("tasks",
-            [["name","Nom"],["duration","Durée"],["done","Faite"],["price","Prix"]],
+            [["name","Nom"],["duration","Durée","custom",["started_at", "ended_at"],(p)=>{
+                console.log(p);
+                return(5);
+            }],["done","Faite","bool"],["price","Prix"]],
             null,
             (dt)=>{
                 goTo("task", false, {
