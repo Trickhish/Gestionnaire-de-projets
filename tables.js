@@ -138,7 +138,7 @@ class Table {
                         } else if (type=="custom") {
                             var pms={};
                             for (var vn of vars) {
-                                pms[]
+                                pms[vn]=dt[vn];
                             }
                             v=fct(pms);
                         }

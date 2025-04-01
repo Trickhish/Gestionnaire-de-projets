@@ -38,8 +38,18 @@ function mission_nav(params) {
         var c = document.querySelector("#mission .bottom");
         var tbl = Table.fromName("tasks",
             [["name","Nom"],["duration","Durée","custom",["started_at", "ended_at"],(p)=>{
-                console.log(p);
-                return(5);
+                var start = dateOfTime(p["started_at"]);
+                var end = dateOfTime(p["ended_at"]);
+
+                if (start==null || end==null) {
+                    return("");
+                }
+
+                var msDiff = Math.abs(start-end);
+
+                var [h,m,s] = getTimeOfMs(msDiff);
+
+                return(formatHMS(h,m,s));
             }],["done","Faite","bool"],["price","Prix"]],
             null,
             (dt)=>{

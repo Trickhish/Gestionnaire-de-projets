@@ -1,25 +1,17 @@
 var tasks={};
 
 function updateDuration(stt, edt) {
-    var start = new Date(`1970-01-01T${stt}Z`);
-    var end = new Date(`1970-01-01T${edt}Z`);
+    var start = dateOfTime(stt);
+    var end = dateOfTime(edt);
 
-    let diffMs = end - start;
+    console.log(start, end);
 
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    diffMs %= (1000 * 60 * 60);
-    const minutes = Math.floor(diffMs / (1000 * 60));
-    diffMs %= (1000 * 60);
-    const seconds = Math.floor(diffMs / 1000);
-
-    var tms = "";
-    if (hours>0) {
-        tms=`${hours}h`;
-        if (minutes>0) {
-            tms+=`${minutes}m`;
-        }
+    if (start!=null && end!=null) {
+        let diffMs = Math.abs(end-start);
+        var [h,m,s] = getTimeOfMs(diffMs);
+        var tms = formatHMS(h,m,s);
     } else {
-        tms=`${minutes}min`
+        var tms="/";
     }
 
     document.querySelector("#task_duration .value").innerHTML = tms;

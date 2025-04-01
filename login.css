@@ -150,6 +150,10 @@ body {
     z-index: 100;
 }
 
+input {
+    margin: 7px auto;
+}
+
 @media screen and (max-aspect-ratio: 1/1) {
     #login_ctn {
         width: 90%;

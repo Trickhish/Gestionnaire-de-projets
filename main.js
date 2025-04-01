@@ -581,6 +581,43 @@ function confirma(msg, o=()=>{}, n=()=>{}, cc=()=>{}) {
     });
 }
 
+function dateOfTime(h) {
+    if (h==null) {
+        return(null);
+    }
+    var dt = new Date(`1970-01-01T${h}Z`);
+
+    return(dt);
+}
+
+function getTimeOfMs(ms) {
+    const hours = Math.floor(ms / (1000 * 60 * 60));
+    ms %= (1000 * 60 * 60);
+    const minutes = Math.floor(ms / (1000 * 60));
+    ms %= (1000 * 60);
+    const seconds = Math.floor(ms / 1000);
+
+    return([hours, minutes, seconds]);
+}
+
+function formatHMS(hours,minutes,seconds) {
+    var tms = "";
+    if (hours>0) {
+        tms=`${hours}h`;
+        if (minutes>0) {
+            tms+=`${minutes}m`;
+        }
+    } else {
+        tms=`${minutes}min`
+    }
+    return(tms);
+}
+
+function currentTime() {
+    var tm = new Date();
+    return(tm.getHours()+":"+tm.getMinutes());
+}
+
 function setCardContent(card, title=null, body=null) {
     if (title!=null) {
         card.querySelector("h1").innerHTML = title;

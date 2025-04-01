@@ -325,6 +325,6 @@ modal#confirm_modal button {
     margin: 0 .5em;
 }
 
-@media screen and (max-aspect-ratio: 1/1) {
+@media only screen and (max-width: 850px) {
     
 }

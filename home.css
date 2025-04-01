@@ -337,7 +337,7 @@ subsection.active {
     pointer-events: all;
 }
 
-@media screen and (max-aspect-ratio: 1/1) {
+@media only screen and (max-width: 900px) {
     #sidebar {
         /*position: fixed;*/
         padding:0;
@@ -437,5 +437,11 @@ subsection.active {
         align-items: stretch;
         align-content: center;
         justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #main {
+        padding: 1em .5em;
     }
 }
