@@ -468,7 +468,9 @@ else if ($a == "setvalue") {
     }
 
     $v=(($v===true || $v==="true") ? 1 : (($v===false || $v==="false") ? 0 : $v));
-
+    if ($v=='') {
+        $v=null;
+    }
 
     $atb = $tables[$tb][0];
     

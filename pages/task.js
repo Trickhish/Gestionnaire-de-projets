@@ -4,8 +4,6 @@ function updateDuration(stt, edt) {
     var start = dateOfTime(stt);
     var end = dateOfTime(edt);
 
-    console.log(start, end);
-
     if (start!=null && end!=null) {
         let diffMs = Math.abs(end-start);
         var [h,m,s] = getTimeOfMs(diffMs);

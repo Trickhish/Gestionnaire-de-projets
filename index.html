@@ -292,10 +292,19 @@
 
             <div class="field_block">
                 <label for="task_started_at">Heure de commencement</label>
-                <input class="" type="time" id="task_started_at"><button>Now</button>
+                
+                <div class="inline_ctn">
+                    <input class="" type="time" id="task_started_at">
+                    <button onclick="var e=document.querySelector('#task_started_at'); e.value=null; e.dispatchEvent(new Event('change'));" style="margin-right:5px;"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="var e=document.querySelector('#task_started_at'); e.value = currentTime(); e.dispatchEvent(new Event('change'));">Now</button>
+                </div>
 
                 <label for="task_ended_at">Heure de fin</label>
-                <input class="" type="time" id="task_ended_at"><button>Now</button>
+                <div class="inline_ctn">
+                    <input class="" type="time" id="task_ended_at">
+                    <button onclick="var e=document.querySelector('#task_ended_at'); e.value=null; e.dispatchEvent(new Event('change'));" style="margin-right:5px;"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="var e=document.querySelector('#task_ended_at'); e.value = currentTime(); e.dispatchEvent(new Event('change'));">Now</button>
+                </div>
 
                 <p id="task_duration">Durée: <span class="value"></span></p>
             </div>

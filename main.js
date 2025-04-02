@@ -342,7 +342,7 @@ class bondInput {
     change(ev) {
         var vl = this.getValue();
 
-        if (vl==this.prevValue || vl==="") {
+        if (vl==this.prevValue) { //  || vl===""
             return;
         }
         if (this.changeTo!=null) {
