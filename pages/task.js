@@ -23,8 +23,9 @@ function task_nav(params) {
         ci = new Ressource("task_"+tid.toString(), new Fetch("task", {"task_id": tid}, [], "GET"), true, 30, null, (e)=>{
             return(e);
         }, (r)=>{
+            console.log(r);
             currentPage = ["task", {"task_id": tid, "task": r}];
-            document.getElementById("section_title").innerText = (r.name??"New Task")+" - "+r.client_name;
+            document.getElementById("section_title").innerText = (r.name??"New Task")+" - "+r.project_name;
 
             var durt = new MultiTask(["start_time", "end_time"], (p)=>{                
                 updateDuration(p["start_time"], p["end_time"]);

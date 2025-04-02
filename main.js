@@ -613,6 +613,20 @@ function formatHMS(hours,minutes,seconds) {
     return(tms);
 }
 
+function durationOfInterval(t1, t2) {
+    var start = dateOfTime(t1);
+    var end = dateOfTime(t2);
+
+    if (start==null || end==null) {
+        return("");
+    }
+
+    var msDiff = Math.abs(start-end);
+
+    var [h,m,s] = getTimeOfMs(msDiff);
+    return(formatHMS(h,m,s));
+}
+
 function currentTime() {
     var tm = new Date();
     return(tm.getHours()+":"+tm.getMinutes());

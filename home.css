@@ -209,7 +209,7 @@ subsection.active {
     align-items: stretch;
     align-content: stretch;
     justify-content: space-around;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* wrap */
 }
 .card {
     background-color: var(--card-bg);
@@ -337,6 +337,16 @@ subsection.active {
     pointer-events: all;
 }
 
+@media only screen and (max-width: 1000px) {
+    .fullctn {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        align-content: center;
+        justify-content: flex-start;
+    }
+}
+
 @media only screen and (max-width: 900px) {
     #sidebar {
         /*position: fixed;*/
@@ -431,12 +441,9 @@ subsection.active {
         margin: 0;
         margin-bottom: .5em;
     }
-    .fullctn {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: stretch;
-        align-content: center;
-        justify-content: flex-start;
+
+    .cards_group {
+        flex-wrap: wrap;
     }
 }
 

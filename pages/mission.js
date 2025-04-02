@@ -4,6 +4,12 @@ var tasks = {};
 function mission_nav(params) {
     var mid = params["mission_id"];
 
+    var cards = document.querySelectorAll("subsection#mission .card");
+    //setCardContent(cards[0], null, "//");
+    //setCardContent(cards[1], null, "//");
+    //setCardContent(cards[2], null, "//");
+    //setCardContent(document.querySelectorAll("subsection#mission .card")[3], null, "//");
+
     var ci = projects[mid];
     if (!ci) {
         ci = new Ressource("project_"+mid.toString(), new Fetch("project", {"project_id": mid}, [], "GET"), true, 30, null, (e)=>{
@@ -24,8 +30,6 @@ function mission_nav(params) {
                     });
                 });
             };
-
-            console.log(r);
         });
         projects[mid] = ci;
     } else {
@@ -78,8 +82,15 @@ function mission_nav(params) {
 
         var mts = new Ressource(mid+"_tasks", new Fetch("tasks", {"project_id": mid}, [], "GET"), true, 30, null, (e)=>{
             return(e);
-        }, (r)=>{
-            tbl.place(c, null, r)
+        }, (r)=>{ // checkpresent
+            var doneTasks = r.filter(e=> e.done==1);
+            setCardContent(document.querySelectorAll("subsection#mission .card")[3], null, Math.round(doneTasks.length/r.length*100));
+
+            let sum = 0
+            r.map(e=> sum+=Math.abs(dateOfTime(e["started_at"])-dateOfTime(e["ended_at"]))); // started_at ended_at
+            setCardContent(document.querySelectorAll("subsection#mission .card")[0], null, formatHMS(...getTimeOfMs(sum)));
+
+            tbl.place(c, null, r);
         });
 
         tasks[mid] = mts;

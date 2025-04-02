@@ -130,7 +130,6 @@ body {
     color:var(--font-color);
 }
 
-
 input {
     background-color: var(--inp-bg);
     border: solid 1px var(--inp-bd);
@@ -331,6 +330,29 @@ modal#confirm_modal button {
     flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 700px) {
-    
+
+
+section, subsection {
+    width: 70%;
+    margin: 0 auto;
 }
+
+@media only screen and (max-width: 1600px) {
+    section, subsection {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    section, subsection {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    section, subsection {
+        width: 100%;
+    }
+}
+
+
