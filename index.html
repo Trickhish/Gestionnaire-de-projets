@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <title>Gestionnaire de projets</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
     <script src="main.js"></script>
     <script src="tables.js"></script>
     <link href="tables.css" rel="stylesheet" />
@@ -14,6 +16,7 @@
     <script src="pages/client.js"></script>
     <script src="pages/mission.js"></script>
     <script src="pages/task.js"></script>
+    <script src="pages/devis.js"></script>
     <link href="pages/clients.css" rel="stylesheet" />
 
     <script src="home.js"></script>
@@ -96,11 +99,26 @@
                     <p class="value">2000 €</p>
                 </content>
             </div>
+
+            <!-- List Group -->
+            <div class="js-sortable sortablejs-custom list-group"
+            data-hs-sortable-options='{
+            "animation": 150,
+            "group": "listGroup"
+            }'>
+                <div class="list-group-item">Item 1</div>
+                <div class="list-group-item">Item 2</div>
+                <div class="list-group-item">Item 3</div>
+                <div class="list-group-item">Item 4</div>
+                <div class="list-group-item">Item 5</div>
+                <div class="list-group-item">Item 6</div>
+            </div>
+            <!-- End List Group -->
         </section>
 
 
 
-        <!-- /clients -->
+        <!-- /clients | CLIENTS-->
         <section id="clients" data-title="Clients">
             <!--<div id="cctn" class="ag-theme-quartz">
 
@@ -123,7 +141,7 @@
             <svg title="Ajouter un client" class="bradd" onclick="addclient();" id="addclient" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>
         </section>
 
-        <!-- /client/<client_id> -->
+        <!-- /client/<client_id> | CLIENT-->
         <subsection id="client" data-parent="clients" data-title="Client">
             <div id="sides" class="fullctn">
                 <div class="left_side">
@@ -210,7 +228,7 @@
             </div>
         </subsection>
 
-        <!-- /clients/<client_id>/<mission_id> -->
+        <!-- /clients/<client_id>/<mission_id> | MISSION -->
         <subsection id="mission" data-parent="clients" data-title="Mission">
             <div id="sides" class="fullctn">
                 <div class="left_side">
@@ -259,7 +277,8 @@
                         </textarea>
                     </div>
 
-                    <button id="delproject" class="wide">Delete Project  <i class="fa-solid fa-trash"></i></button>
+                    <button id="" class="wide">Générer un devis <i class="fa-solid fa-file-invoice"></i></button>
+                    <button id="delproject" class="wide">Supprimer le projet <i class="fa-solid fa-trash"></i></button>
                 </div>
 
                 <svg title="Ajouter une tâche" onclick="addtask();" id="addtask" class="bradd" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>

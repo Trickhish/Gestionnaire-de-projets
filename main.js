@@ -650,6 +650,13 @@ window.addEventListener("load", ()=>{
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
     vtki();
+
+    const list = document.querySelector('.js-sortable');
+
+    new Sortable(list, {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
 });
 
 window.onclick = function(e){

@@ -281,7 +281,7 @@ modal {
 }
 modal.active {
     height: auto;
-    width: auto;
+    /*width: auto;*/
     opacity: 1;
     overflow: visible;
 }
@@ -330,6 +330,19 @@ modal#confirm_modal button {
     flex-wrap: wrap;
 }
 
+.draggable {
+    cursor: grab;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .125);
+    cursor: grab;
+    color:black;
+}
 
 
 section, subsection {
@@ -337,9 +350,17 @@ section, subsection {
     margin: 0 auto;
 }
 
+/* modal */
+
 @media only screen and (max-width: 1600px) {
     section, subsection {
         width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    modal#confirm_modal {
+        width:40% !important;
     }
 }
 
@@ -353,6 +374,25 @@ section, subsection {
     section, subsection {
         width: 100%;
     }
+
+    modal#confirm_modal {
+        width:50% !important;
+    }
 }
 
+@media only screen and (max-width: 1200px) {
+    modal#confirm_modal {
+        width:60% !important;
+    }
+    modal .closebt {
+        height: 2em;
+        width: 2em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    modal#confirm_modal {
+        width:70% !important;
+    }
+}
 
