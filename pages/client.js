@@ -76,6 +76,9 @@ function client_nav(params) {
                             "mission_id": pj.id
                         });
                     });
+                    ce.addEventListener("auxclick", (ev)=>{       
+                        auxClick(ev, "mission", {"mission_id": pj.id});
+                    });
                     
                     ctn.appendChild(ce);
                 }

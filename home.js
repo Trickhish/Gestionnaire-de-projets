@@ -60,6 +60,30 @@ function goTo(page, rw=true, params={}) {
     return(true);
 }
 
+function auxClick(ev, page, params={}) {
+    if (ev.button==1) { // middle click
+        newTabGo(page, params);
+    }
+}
+
+function newTabGo(page, params={}) {
+    getParams = "";
+    for (var [pk, pv] of Object.entries(params)) {
+        if (getParams=="") {
+            getParams+="?";
+        } else {
+            getParams+="&";
+        }
+        getParams+=pk+"="+pv;
+    }
+
+    //window.location.hash = "#"+sse.getAttribute("data-parent")+"#"+sn+getParams;
+    //window.location.hash = ;
+
+    const wd = window.open(`${window.location.origin}/#${page}${getParams}`);
+    wd.focus();
+}
+
 function subSection(sn, params={}) {
     var sse = document.querySelector("subsection#"+sn);
     if (!sse) {

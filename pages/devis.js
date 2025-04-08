@@ -1,6 +1,9 @@
+
+quotes = {}
+
 function devis_load(params) {
 
-    var ci = tasks[tid];
+    var ci = quotes[tid];
     if (!ci) {
         ci = new Ressource("task_"+tid.toString(), new Fetch("task", {"task_id": tid}, [], "GET"), true, 30, null, (e)=>{
             return(e);
@@ -48,6 +51,10 @@ function devis_load(params) {
     }
 }
 
-quotations = new Ressource("quotations", new Fetch("quotations", {}, ["clients"], "GET"), false, 30, null, (e)=>{
+function addquote() {
+
+}
+
+quotations = new Ressource("quotes", new Fetch("quotes", {}, ["quotes"], "GET"), false, 30, null, (e)=>{
     return(new Client(e));
 }, checkClients);

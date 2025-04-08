@@ -20,6 +20,15 @@ function checkClients(cl) {
                 }
                 goTo("client", false, {"client_id": el.getAttribute("data-id")});
             });
+            ce.addEventListener("auxclick", (ev)=>{
+                var el = ev.target;
+                if (el.tagName=="TD") {
+                    el=el.parentNode;
+                }
+
+                auxClick(ev, "client", {"client_id": el.getAttribute("data-id")});
+                //goTo("client", false, {"client_id": el.getAttribute("data-id")});
+            });
             ce.setAttribute("data-id", e.id);
             ce.className = "client";
 

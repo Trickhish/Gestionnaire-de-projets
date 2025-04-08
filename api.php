@@ -608,6 +608,22 @@ else if ($a == "clientreport") {
 
 
 
+
+else if ($a == "quotes") {
+    $uid = vtki($tk);
+
+    $r = req("SELECT * FROM quotations WHERE user_id=:uid ORDER BY creation_date DESC", array("uid"=> $uid))[0];
+
+    ok(array(
+        "quotes"=> $r
+    ));
+}
+
+
+
+
+
+
 else if ($a == "tasks") {
     [$pid] = mdtpi(["project_id"]);
     $uid = vtki($tk);

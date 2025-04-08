@@ -641,6 +641,12 @@ function setCardContent(card, title=null, body=null) {
     }
 }
 
+function mdlc(ev, cb) {
+    if (ev.button == 1) {
+        cb();
+    }
+}
+
 window.addEventListener("load", ()=>{
     if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && localStorage.getItem("theme")==null) || localStorage.getItem('theme')=="dark") {
         changeTheme('dark');

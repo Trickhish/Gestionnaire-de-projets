@@ -56,10 +56,16 @@ function mission_nav(params) {
                 return(formatHMS(h,m,s));
             }],["done","Faite","bool"],["price","Prix"]],
             null,
-            (dt)=>{
-                goTo("task", false, {
-                    "task_id": dt["id"]
-                });
+            (type, dt)=>{
+                if (type=="left") {
+                    goTo("task", false, {
+                        "task_id": dt["id"]
+                    });
+                } else if (type=="middle") {
+                    newTabGo("task", {
+                        "task_id": dt["id"]
+                    });
+                }
             }
         );
 

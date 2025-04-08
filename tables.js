@@ -85,8 +85,12 @@ class Table {
             for (let dt of this.data) {
                 var tr = document.createElement("tr");
                 tr.addEventListener("click", ()=>{
-                    //console.log(`${dt["id"]} clicked`);
-                    this.rowClick(dt);
+                    this.rowClick("left", dt);
+                });
+                tr.addEventListener("auxclick", (ev)=>{
+                    if (ev.button==1) { // middle click
+                        this.rowClick("middle", dt);
+                    }
                 });
 
                 var i=0;
@@ -118,8 +122,12 @@ class Table {
             for (let dt of this.data) {
                 var tr = document.createElement("tr");
                 tr.addEventListener("click", ()=>{
-                    //console.log(`${dt["id"]} clicked`);
-                    this.rowClick(dt);
+                    this.rowClick("left", dt);
+                });
+                tr.addEventListener("auxclick", (ev)=>{
+                    if (ev.button==1) { // middle click
+                        this.rowClick("middle", dt);
+                    }
                 });
                 //console.log(dt);
     
