@@ -612,11 +612,44 @@ else if ($a == "clientreport") {
 else if ($a == "quotes") {
     $uid = vtki($tk);
 
-    $r = req("SELECT * FROM quotations WHERE user_id=:uid ORDER BY creation_date DESC", array("uid"=> $uid))[0];
+    $r = req("SELECT *,(SELECT name from clients WHERE clients.id=quotations.client_id) as client_name FROM quotations WHERE user_id=:uid ORDER BY creation_date DESC", array("uid"=> $uid))[0];
 
     ok(array(
         "quotes"=> $r
     ));
+}
+
+
+
+else if ($a == "quote") {
+    [$qid] = mdtpi(["quote_id"]);
+    $uid = vtki($tk);
+
+    $r = req("SELECT *,(SELECT name from clients WHERE clients.id=quotations.client_id) as client_name FROM quotations WHERE id=:qid", array("qid"=> $qid))[0][0];
+
+    ok(array(
+        "quote"=> $r
+    ));
+}
+
+
+
+else if ($a == "addquote") {
+    $uid = vtki($tk);
+
+    //	id	user_id	creation_date	disposition	signed	client_id	title	
+
+    [$r, $enb, $cid] = req("INSERT INTO quotations (user_id) VALUES (:uid)", array(
+        "uid"=> $uid
+    ));
+
+    if ($cid !== null) {
+        ok(array(
+            "quote_id"=> $cid
+        ));
+    } else {
+        err("unknown_error", "Unknown Error", 500);
+    }
 }
 
 
