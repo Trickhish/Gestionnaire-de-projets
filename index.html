@@ -408,12 +408,11 @@
 
                         <div id="quote_client" class="searchable_select dismissible">
                             <button data-dndm="#quote_client" class="ss_btn">Select Item</button>
-                            <div data-dndm="#quote_client" class="ss_dropdown">
+                            <div value="" data-dndm="#quote_client" class="ss_dropdown">
                                 <input data-dndm="#quote_client" type="text" class="ss_search" placeholder="Search..." title="search">
                                 <ul class="ss_items">
-                                    <li data-value="Nothing" class="option">Select</li>
                                     <li data-value="1" class="option">Some option</li>
-                                    <li data-value="2" class="option selected">Another option</li>
+                                    <li data-value="2" class="option">Another option</li>
                                     <li data-value="3" class="option">A disabled option</li>
                                     <li data-value="4" class="option">Potato</li>
                                 </ul>
@@ -437,6 +436,13 @@
         
                     <button id="delbt" class="wide delbt">Delete Quote <i class="fa-solid fa-trash"></i></button>
                 </div>
+            </div>
+
+            <div class="fullctn">
+                <div class="editor" id="quote_editor">
+
+                </div>
+            </div>
         </subsection>
 
 

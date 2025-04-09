@@ -456,6 +456,9 @@ else if ($a == "setvalue") {
         )],
         "user"=> ["users", [], ["id=:uid"], array(
             "uid"=>$uid
+        )],
+        "quote"=> ["quotations", ["title", "client_id", "description", "signed"], ["user_id=:uid"], array(
+            "uid"=>$uid
         )]
     );
 
@@ -510,6 +513,9 @@ else if ($a == "getvalue") {
             "uid"=>$uid
         )],
         "user"=> ["users", [], ["id=:uid"], array(
+            "uid"=>$uid
+        )],
+        "quote"=> ["quotations", ["title", "client_id", "description", "signed"], ["user_id=:uid"], array(
             "uid"=>$uid
         )]
     );

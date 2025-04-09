@@ -1,0 +1,16 @@
+
+
+:root {
+    --editor_bg:white;
+}
+
+[data-theme="dark"] {
+    --editor_bg:#a1a19e;
+}
+
+.editor {
+    width: 21cm;
+    aspect-ratio: 21 / 29.7;
+    background-color: var(--editor_bg);
+    border: solid 2px gray;
+}

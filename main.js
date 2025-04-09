@@ -300,6 +300,9 @@ class bondInput {
         if (this.type=="INPUT" && elm.type=="checkbox") {
             this.type="CHECKBOX";
         }
+        if (elm.classList.contains("searchable_select")) {
+            this.type="SEARCHABLE_SELECT";
+        }
         this.node = elm;
         this.table=table;
         this.field=field;
@@ -374,6 +377,8 @@ class bondInput {
             this.node.checked=value;
         } else if (this.type=="TEXTAREA") {
             this.node.value=value;
+        } else if (this.type=="SEARCHABLE_SELECT") {
+            ssOptionSelectByVal(this.node, value);
         }
     }
 
@@ -384,6 +389,8 @@ class bondInput {
             return(this.node.checked);
         } else if (this.type=="TEXTAREA") {
             return(this.node.value);
+        } else if (this.type=="SEARCHABLE_SELECT") {
+            return(this.node.getAttribute("value"));
         }
         return(false);
     }
@@ -391,6 +398,11 @@ class bondInput {
     set() {
 
     }
+}
+
+function triggerEvent(el, event_name) {
+    var event = new Event(event_name);
+    el.dispatchEvent(event);
 }
 
 // get cookie value
