@@ -1,0 +1,9 @@
+.table_icon {
+    font-size:20px;
+}
+.table_icon.bad {
+    color:#b80303;
+}
+.table_icon.good {
+    color:#1bd152;
+}

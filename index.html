@@ -7,9 +7,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
     <script src="main.js"></script>
-    <script src="tables.js"></script>
-    <link href="tables.css" rel="stylesheet" />
     <link href="main.css" rel="stylesheet" />
+
+    <script src="modules/tables.js"></script>
+    <link href="modules/tables.css" rel="stylesheet" />
+    <script src="modules/inputs.js"></script>
+    <link href="modules/inputs.css" rel="stylesheet" />
+    <script src="modules/dismissible.js"></script>
+    <link href="modules/dismissible.css" rel="stylesheet" />
 
     <script src="pages/accueil.js"></script>
     <script src="pages/clients.js"></script>
@@ -358,7 +363,80 @@
 
         <!-- /quotes/<quote_id> -->
         <subsection id="devi" data-parent="devis" data-title="Devis">
+            <div id="sides" class="fullctn">
+                <div class="left_side">
+                    <div class="cards_group">
+                        <div id="tg_card" class="card bignumber sea">
+                            <h1>Revenu</h1>
+                            <content>
+                                <p><span class="value"></span> €</p>
+                            </content>
+                        </div>
+            
+                        <div id="mnb_card" class="card bignumber sea">
+                            <h1>Client</h1>
+                            <content>
+                                <p class="value"></p>
+                            </content>
+                        </div>
+                    </div>
+                    <div class="cards_group">
+                        <div id="thr_card" class="card bignumber sea">
+                            <h1>Total d'heures travaillées</h1>
+                            <content>
+                                <p><span class="value"></span>h</p>
+                            </content>
+                        </div>
+            
+                        <div id="bcr_card" class="card bignumber sea">
+                            <h1></h1>
+                            <content>
+                                <p class="value"></p>
+                            </content>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="right_side">
+                    <div class="field_block">
+                        <label for="quote_title">Titre</label>
+                        <input class="client_details_inp" type="text" id="quote_title"></input>
+                    </div>
 
+                    <div class="field_block">
+                        <label for="quote_client">Client</label>
+
+                        <div id="quote_client" class="searchable_select dismissible">
+                            <button data-dndm="#quote_client" class="ss_btn">Select Item</button>
+                            <div data-dndm="#quote_client" class="ss_dropdown">
+                                <input data-dndm="#quote_client" type="text" class="ss_search" placeholder="Search..." title="search">
+                                <ul class="ss_items">
+                                    <li data-value="Nothing" class="option">Select</li>
+                                    <li data-value="1" class="option">Some option</li>
+                                    <li data-value="2" class="option selected">Another option</li>
+                                    <li data-value="3" class="option">A disabled option</li>
+                                    <li data-value="4" class="option">Potato</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="field_block inline">
+                        <p id="sw_title">Signé : </p>
+        
+                        <div class="sw_ctn">
+                            <input type="checkbox" id="quote_signed"></input> <!-- onchange="clientChange('declared', this.checked);" -->
+                            <label class="sw_label" for="quote_signed"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="field_block">
+                        <label for="quote_desc">Description</label>
+                        <textarea class="client_details_inp details_textarea" id="quote_desc"></textarea>
+                    </div>
+        
+                    <button id="delbt" class="wide delbt">Delete Quote <i class="fa-solid fa-trash"></i></button>
+                </div>
         </subsection>
 
 
