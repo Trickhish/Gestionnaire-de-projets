@@ -1,6 +1,5 @@
 var quotes = {}
 
-
 function update_values(res) {
     var cl = res.value;
     var qid = cl["id"];
@@ -22,33 +21,8 @@ function update_values(res) {
     var qnm_bd = new bondInput(section.querySelector("#quote_title"), qid, "quote", "title");
     var qdesc_bd = new bondInput(section.querySelector("#quote_desc"), qid, "quote", "description");
     var qsgn_bd = new bondInput(section.querySelector("#quote_signed"), qid, "quote", "signed");
-    
 
-    return;
 
-    document.querySelector("subsection#client #client_name").value = cl["name"];
-    document.querySelector("subsection#client #client_adress").value = cl["adress"];
-    document.querySelector("subsection#client #client_hr").value = cl["hourly_rate"];
-    document.querySelector("subsection#client #client_declared").checked = cl["declared"];
-    document.querySelector("subsection#client #delclient").onclick = ()=>{
-        delclient(cl.id);
-    };
-    document.querySelector("#tg_card .value").innerHTML = cl.tgain;
-    document.querySelector("#thr_card .value").innerHTML = Math.round(cl.ttime/60);
-    document.querySelector("#mnb_card .value").innerHTML = cl.pcount;
-    var rk = cl.rank;
-    if (rk==1) {
-        rk="1<sup>er</sup>";
-    } else if (rk==2) {
-        rk="2<sup>ème</sup>";
-    } else if (rk==3) {
-        rk="3<sup>ème</sup>";
-    } else {
-        rk=(rk).toString()+"<sup>ème</sup>";
-    }
-    document.querySelector("#bcr_card .value").innerHTML = rk;
-
-    projectsSort("creation_date", "desc");
 }
 
 function devi_nav(params) {
@@ -76,5 +50,35 @@ function devi_nav(params) {
         });
     }
 }
+
+window.addEventListener("load", (evt)=>{
+    // Palette
+    new Sortable(document.querySelector("subsection#devi .palette"), {
+        group: { name: "shared", pull: "clone", put: false }, // Clone items
+        sort: false
+    });
+
+    // Editor
+    new Sortable(document.querySelector("subsection#devi .editor"), {
+        group: "shared",
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65,
+        ghostClass: "ghost",
+        onAdd: function (evt) {
+            if (evt.from.classList.contains("palette")) {
+                handleAdd(evt.item, evt.to);
+            }
+        }
+    });
+
+    // Delete Area
+    //new Sortable(document.querySelector("subsection#devi .delete-area"), {
+    //    group: "shared",
+    //    onAdd: function (evt) {
+    //        evt.item.remove();
+    //    }
+    //});
+});
 
 

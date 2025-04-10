@@ -5,9 +5,11 @@ function makeSortable(el) {
         group: "shared",
         animation: 150,
         fallbackOnBody: true,
-        swapThreshold: 0.65,
+        //swapThreshold: 0.65,
+        //emptyInsertThreshold: 5,
+        dragoverBubble: true,
         onAdd: function (evt) {
-            if (evt.from.id === "palette") {
+            if (evt.from.classList.contains("palette")) {
                 handleAdd(evt.item, evt.to);
             }
         }
@@ -15,29 +17,25 @@ function makeSortable(el) {
 }
 
 function handleAdd(el, to) {
-    let itemType = el.getAttribute("data-type");
+    let type = el.getAttribute("data-type");
     let dir = el.getAttribute("data-dir");
 
-    if (itemType === "container") {
+    if (type === "container") {
         var ne = document.createElement("div");
-        ne.className = `container ${(dir=="horizontal") ? "horizontal" : "vertical"}`;
+        ne.className = `stb_item nested ${(dir=="horizontal") ? "horizontal" : "vertical"}`;
         el.replaceWith(ne);
-
-        // <div class="nested-list${(dir=="horizontal") ? " horizontal" : " vertical"}"></div>
-
-        /*el.outerHTML = `
-            <div class="container${(dir=="horizontal") ? " horizontal" : " vertical"}">
-
-            </div>`;
-        */
-        
-        //let newContainer = to.lastElementChild.querySelector(".container"); // .nested-list
         makeSortable(ne);
+    } else if (type == "image") {
+        var ne = document.createElement("img");
+        ne.className = "stb_item image";
+        ne.src = "/res/image_placeholder.jpg";
+        el.replaceWith(ne);
     }
 }
 
 
 window.addEventListener("load", ()=>{
+    return;
 
     // Palette
     new Sortable(document.getElementById("palette"), {

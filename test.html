@@ -4,59 +4,11 @@
         <meta charset="utf-8"/>
         <title>SortableJS test</title>
 
-        <script src="test.js"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                display: flex;
-                gap: 20px;
-            }
-            .list {
-                border: 2px dashed #ccc;
-                min-height: 200px;
-                padding: 10px;
-                width: 200px;
-            }
-            .item {
-                padding: 10px;
-                margin: 5px 0;
-                background: lightblue;
-                cursor: grab;
-            }
-            #delete-area {
-                background: red;
-                color: white;
-                text-align: center;
-                padding: 20px;
-                width: 100px;
-                height: 100px;
-            }
-            .container {
-                background: #f8f8f8;
-                border: 2px solid #888;
-                padding: 0;
-                margin: 5px 0;
-            }
-            .container .nested-list {
-                border: 1px dashed #aaa;
-                min-height: 50px;
-
-                
-                background-image: url(/res/arrow_down.png);
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-            .horizontal {
-                display: flex;
-                flex-direction: row;
-                gap: 10px;
-                overflow-x: auto;
-                background-image: url(/res/arrow_right.png) !important;
-            }
-        </style>
+        <link href="modules/editor.css" rel="stylesheet" />
+        <script src="modules/editor.js"></script>
     </head>
 
     <body>
@@ -66,8 +18,8 @@
                 <div class="item" data-type="text">Text Block</div>
                 <div class="item" data-type="image">Image Block</div>
                 <div class="item" data-type="video">Video Block</div>
-                <div class="item container-block" data-type="container">Vertical Container</div>
-                <div class="item container-block" data-type="horizontal-container">Horizontal Container</div>
+                <div class="item container-block" data-dir="vertical" data-type="container">Vertical Container</div>
+                <div class="item container-block" data-dir="horizontal" data-type="container">Horizontal Container</div>
             </div>
         </div>
     

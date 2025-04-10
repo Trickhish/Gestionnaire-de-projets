@@ -20,6 +20,7 @@ body {
     padding: 0 0.5em;
     background:var(--sidebar-bg);
     height: 100vh;
+    z-index:99999;
     /*min-height: calc(var(--vh, 1vh) * 100);*/
     margin: 0;
     transition: all .2s ease-in-out;

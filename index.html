@@ -15,6 +15,8 @@
     <link href="modules/inputs.css" rel="stylesheet" />
     <script src="modules/dismissible.js"></script>
     <link href="modules/dismissible.css" rel="stylesheet" />
+    <script src="modules/editor.js"></script>
+    <link href="modules/editor.css" rel="stylesheet" />
 
     <script src="pages/accueil.js"></script>
     <script src="pages/clients.js"></script>
@@ -439,7 +441,19 @@
             </div>
 
             <div class="fullctn">
-                <div class="editor" id="quote_editor">
+                <div class="sortable" id="quote_editor">
+                    <div class="stb_ctn palette">
+                        <div class="stb_item" data-type="text">Text Block</div>
+                        <div class="stb_item" data-type="image">Image Block</div>
+                        <div class="stb_item" data-type="video">Video Block</div>
+                        <div class="stb_item" data-dir="vertical" data-type="container">Vertical Container</div>
+                        <div class="stb_item" data-dir="horizontal" data-type="container">Horizontal Container</div>
+                    </div>
+
+                    <div class="stb_ctn editor">
+
+                    </div>
+
 
                 </div>
             </div>
