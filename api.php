@@ -15,6 +15,29 @@ if (!$dbg) {
     error_reporting(E_ALL);
 }
 
+$env = [];
+
+function loadEnv() {
+    global $env;
+
+    if (file_exists(__DIR__ . "/.env")) {
+        $lines = file(__DIR__ . "/.env");
+        foreach ($lines as $line) {
+            if (strpos($line, "#") === 0) {
+                continue;
+            }
+            $line = trim($line);
+            if (empty($line)) {
+                continue;
+            }
+            list($key, $value) = explode("=", $line, 2);
+            $env[$key] = trim($value);
+        }
+    }
+}
+
+loadEnv();
+
 function debug($msg) {
     global $dbg;
 
@@ -142,6 +165,7 @@ function verify($p, $h) {
 
 function sqlinit() {
     global $bdd;
+    global $env;
 
     if ($bdd!=null) {
         try {
@@ -150,7 +174,7 @@ function sqlinit() {
         } catch (PDOException $e) {
         }
     }
-    $bdd = new PDO("mysql:host=localhost;dbname=manager", "manager", "lXs7tmCtIYCd8gz0K0UqqNs");
+    $bdd = new PDO("mysql:host=localhost;dbname=manager", "manager", $env["MANAGER_DB_PASSWORD"]);
 
     try {
         $stmt = $bdd->query("DELETE FROM tokens WHERE expiry_date<NOW()");
