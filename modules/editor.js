@@ -4,9 +4,10 @@ function makeSortable(el) {
     new Sortable(el, {
         group: "shared",
         animation: 150,
-        fallbackOnBody: true,
+        fallbackOnBody: false,
+        sort:false,
         //swapThreshold: 0.65,
-        //emptyInsertThreshold: 5,
+        emptyInsertThreshold: 5,
         dragoverBubble: true,
         onAdd: function (evt) {
             if (evt.from.classList.contains("palette")) {

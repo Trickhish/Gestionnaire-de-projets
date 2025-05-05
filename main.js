@@ -641,7 +641,7 @@ function durationOfInterval(t1, t2) {
 
 function currentTime() {
     var tm = new Date();
-    return(tm.getHours()+":"+tm.getMinutes());
+    return(tm.getHours().toString().padStart(2, '0')+":"+tm.getMinutes().toString().padStart(2, '0'));
 }
 
 function setCardContent(card, title=null, body=null) {
@@ -669,12 +669,12 @@ window.addEventListener("load", ()=>{
 
     vtki();
 
-    const list = document.querySelector('.js-sortable');
+    /*const list = document.querySelector('.js-sortable');
 
     new Sortable(list, {
         animation: 150,
         ghostClass: 'sortable-ghost'
-    });
+    });*/
 });
 
 window.onclick = function(e){

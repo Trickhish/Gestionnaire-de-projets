@@ -62,8 +62,9 @@ window.addEventListener("load", (evt)=>{
     new Sortable(document.querySelector("subsection#devi .editor"), {
         group: "shared",
         animation: 150,
-        fallbackOnBody: true,
+        fallbackOnBody: false,
         swapThreshold: 0.65,
+        sort:false,
         ghostClass: "ghost",
         onAdd: function (evt) {
             if (evt.from.classList.contains("palette")) {
