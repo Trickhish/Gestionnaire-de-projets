@@ -1,0 +1,40 @@
+.rcmenu {
+    position:absolute;
+    min-width:50px;
+    min-height:50px;
+    width:max-content;
+    height:max-content;
+    margin:0;
+    padding:5px;
+    
+    background-color: #21242a;
+    border: solid 1px #404040;
+    border-radius: .5rem;
+}
+.rcmenu.up {
+    transform: translate(0, -100%);
+}
+.rcmenu.left {
+    transform: translate(-100%, 0);
+}
+.rcmenu.up.left {
+    transform: translate(-100%, -100%);
+}
+
+.closebt {
+    position: absolute;
+    top: -2vh;
+    right: -2vh;
+    aspect-ratio: 1/1;
+    height:4vh;
+    transition:all .2s ease-in-out;
+    cursor:pointer;
+    fill:white;
+}
+.closebt:hover {
+    transform:scale(1.1);
+}
+
+.cm_bt {
+    width: 100%;
+}

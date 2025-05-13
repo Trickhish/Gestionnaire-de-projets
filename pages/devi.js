@@ -22,7 +22,7 @@ function update_values(res) {
     var qdesc_bd = new bondInput(section.querySelector("#quote_desc"), qid, "quote", "description");
     var qsgn_bd = new bondInput(section.querySelector("#quote_signed"), qid, "quote", "signed");
 
-
+    var qedt_bd = new bondInput(section.querySelector(".editor"), qid, "quote", "disposition");
 }
 
 function devi_nav(params) {
@@ -71,6 +71,20 @@ window.addEventListener("load", (evt)=>{
                 handleAdd(evt.item, evt.to);
             }
         }
+    });
+
+    document.querySelector("subsection#devi .editor").addEventListener("contextmenu", (e) => {
+        openRcMenu({
+            "Clear All": () => {
+                var edt = document.querySelector("subsection#devi .editor");
+                removeAllChildren(edt);
+
+                triggerEvent(edt, "change");
+            }
+        });
+        
+        e.stopPropagation();
+        e.preventDefault();
     });
 
     // Delete Area

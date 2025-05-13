@@ -357,6 +357,8 @@ function clientReport($cid, $uid) {
 
 
 
+
+
 @$a = $_GET["a"];
 @$tk = $_GET['tk'];
 if (empty($tk)) {
@@ -481,9 +483,9 @@ else if ($a == "setvalue") {
         "user"=> ["users", [], ["id=:uid"], array(
             "uid"=>$uid
         )],
-        "quote"=> ["quotations", ["title", "client_id", "description", "signed"], ["user_id=:uid"], array(
+        "quote"=> ["quotations", ["title", "client_id", "description", "signed", "disposition"], ["user_id=:uid"], array(
             "uid"=>$uid
-        )]
+        )],
     );
 
     if (!array_key_exists($tb, $tables)) {
@@ -539,7 +541,7 @@ else if ($a == "getvalue") {
         "user"=> ["users", [], ["id=:uid"], array(
             "uid"=>$uid
         )],
-        "quote"=> ["quotations", ["title", "client_id", "description", "signed"], ["user_id=:uid"], array(
+        "quote"=> ["quotations", ["title", "client_id", "description", "signed", "disposition"], ["user_id=:uid"], array(
             "uid"=>$uid
         )]
     );

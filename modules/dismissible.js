@@ -55,11 +55,12 @@ window.onclick = function(e){
     Array.from(document.querySelectorAll(".dismissible.active")).forEach((el)=>{
         if (!wtl.some((sel) => Array.from(document.querySelectorAll(sel)).includes(el))) { // el.classList.contains(cl)
             //console.log("wtl:", wtl);
-            el.classList.remove("active");
+            if (el.classList.contains("delete")) {
+                el.remove();
+                enableScroll();
+            } else {
+                el.classList.remove("active");
+            }
         }
     });
 }
-
-// Button       -> onclick="activate('#novel_search');"
-// Element      -> class="dismissible"
-// NotToDismiss -> data-dndm="#novel_search/.modal/#delete_modal"

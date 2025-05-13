@@ -297,12 +297,14 @@ class MultiTask {
 class bondInput {
     constructor(elm, eid, table, field, oninit=()=>{}, onupdt=()=>{}) {
         this.type = elm.tagName;
-        if (this.type=="INPUT" && elm.type=="checkbox") {
+        if (elm.classList.contains("stb_ctn") && elm.classList.contains("editor")) {
+            this.type="STB_EDITOR";
+        } else if (elm.classList.contains("searchable_select")) {
+            this.type="SEARCHABLE_SELECT";
+        } else if (this.type=="INPUT" && elm.type=="checkbox") {
             this.type="CHECKBOX";
         }
-        if (elm.classList.contains("searchable_select")) {
-            this.type="SEARCHABLE_SELECT";
-        }
+        
         this.node = elm;
         this.table=table;
         this.field=field;
@@ -379,6 +381,13 @@ class bondInput {
             this.node.value=value;
         } else if (this.type=="SEARCHABLE_SELECT") {
             ssOptionSelectByVal(this.node, value);
+        } else if (this.type=="STB_EDITOR") {
+            try {
+                value = JSON.parse(value);
+            } catch (err) {
+                value = null;
+            }
+            return(stbLoad(this.node, value));
         }
     }
 
@@ -391,6 +400,8 @@ class bondInput {
             return(this.node.value);
         } else if (this.type=="SEARCHABLE_SELECT") {
             return(this.node.getAttribute("value"));
+        } else if (this.type=="STB_EDITOR") {
+            return(JSON.stringify(stbSave(this.node)));
         }
         return(false);
     }
