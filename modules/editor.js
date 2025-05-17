@@ -99,22 +99,6 @@ function handleAdd(el, to) {
     el.replaceWith(ne);
     el=ne;
 
-    /*if (type === "container") {
-        var ne = document.createElement("div");
-        ne.setAttribute("data-type", type);
-        ne.className = `stb_item nested ${(dir=="horizontal") ? "horizontal" : "vertical"}`;
-        el.replaceWith(ne);
-        makeSortable(ne);
-        el=ne;
-    } else if (type == "image") {
-        var ne = document.createElement("img");
-        ne.setAttribute("data-type", type);
-        ne.className = "stb_item image";
-        ne.src = "/res/image_placeholder.jpg";
-        el.replaceWith(ne);
-        el=ne;
-    }*/
-
     triggerEvent(getEditor(el), "change");
 }
 

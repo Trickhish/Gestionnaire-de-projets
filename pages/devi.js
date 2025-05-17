@@ -75,11 +75,16 @@ window.addEventListener("load", (evt)=>{
 
     document.querySelector("subsection#devi .editor").addEventListener("contextmenu", (e) => {
         openRcMenu({
-            "Clear All": () => {
-                var edt = document.querySelector("subsection#devi .editor");
-                removeAllChildren(edt);
+            "Toggle Display mode": ()=> {
 
-                triggerEvent(edt, "change");
+            },
+            "Clear All": () => {
+                confirma("Voulez-vous vraiment supprimer tous les élémentss ?", ()=>{
+                    var edt = document.querySelector("subsection#devi .editor");
+                    removeAllChildren(edt);
+
+                    triggerEvent(edt, "change");
+                });
             }
         });
         

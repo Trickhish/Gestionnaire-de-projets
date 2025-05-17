@@ -11,6 +11,8 @@ Logiciel de gestion de projet, comptabilité et signature électronique
 - Basic interface
 - Authentication, rights management
 - List, create, delete, edit clients
+- List, create, delete, edit missions
+- List, create, delete, edit tasks
 
 &nbsp;
 ## What's to do ?
