@@ -119,3 +119,21 @@
 
 
 
+.edt-style_h1 {
+    font-size: 2rem;
+}
+.edt-style_h2 {
+    font-size: 1.5rem;
+}
+.edt-style_h3 {
+    font-size: 1.2rem;
+}
+.edt-style_h4 {
+    font-size: 1rem;
+}
+.edt-style_h5 {
+    font-size: 0.8rem;
+}
+.edt-style_h6 {
+    font-size: 0.6rem;
+}

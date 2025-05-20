@@ -36,6 +36,8 @@ function getEditor(el, mx=10) {
 function addBlock(dt) {
     let type = dt["type"];
 
+    let rcb = {}
+
     if (type === "container") {
         var ne = document.createElement("div");
         ne.setAttribute("data-type", type);
@@ -56,30 +58,37 @@ function addBlock(dt) {
         se.innerText = dt["text"]??"";
         se.setAttribute("contenteditable", "true");
         ne.appendChild(se);
+
+        rcb["Changer la taille"] = {
+            "h1 / 2em": ()=> {
+
+            },
+            "h2 / 1.5em": ()=> {
+
+            },
+            "h3 / 1.17em": ()=> {
+
+            },
+        };
+        
     } else {
         var ne = document.createElement("div");
         ne.setAttribute("data-type", type);
         ne.className = "stb_item";
     }
 
-    ne.addEventListener("contextmenu", (e) => {
-        openRcMenu({
-            "Edit": () => {
-                console.log("Edit");
-            },
-            "Properties": () => {
-                console.log("Properties");
-            },
-            "Supprimer": () => {
-                console.log(ne, getEditor(ne));
+    rcb["Supprimer"] = () => {
+        console.log(ne, getEditor(ne));
 
-                var edt = getEditor(ne);
-                ne.remove();
-                if (edt!=null) {
-                    triggerEvent(edt, "change");
-                }
-            }
-        });
+        var edt = getEditor(ne);
+        ne.remove();
+        if (edt!=null) {
+            triggerEvent(edt, "change");
+        }
+    };
+
+    ne.addEventListener("contextmenu", (e) => {
+        openRcMenu(rcb);
         
         e.stopPropagation();
         e.preventDefault();
