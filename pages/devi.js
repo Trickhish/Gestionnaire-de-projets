@@ -64,7 +64,7 @@ window.addEventListener("load", (evt)=>{
         animation: 150,
         fallbackOnBody: false,
         swapThreshold: 0.65,
-        sort:false,
+        sort:true,
         ghostClass: "ghost",
         onAdd: function (evt) {
             if (evt.from.classList.contains("palette")) {

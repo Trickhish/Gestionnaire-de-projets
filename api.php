@@ -284,6 +284,11 @@ function genToken($len=20) {
     return(bin2hex( random_bytes(intval($len/2)) ));
 }
 
+function genUid() {
+    return(bin2hex(random_bytes(16)));
+    //return(str_replace(".", "", uniqid("", true)));
+}
+
 function rmTks() {
     req("DELETE FROM tokens WHERE expiry_date<=NOW()");
 }
@@ -857,6 +862,101 @@ else if ($a == "addclient") {
         err("unknown_error", "Unknown Error", 500);
     }
 }
+
+
+
+
+
+
+else if ($a == "media_upload") {$uid = vtki($tk);
+    $uid = vtki($tk);
+
+    if (!isset($_FILES["file"])) {
+        err("missing_file", "No file was uploaded", 400);
+    }
+    $file = $_FILES["file"];
+
+    if ($file["error"] !== UPLOAD_ERR_OK) {
+        err("upload_error", "An error occurred during the file upload: " . $file["error"], 400);
+    }
+
+    $fileId = genUid();
+    $originalName = basename($file["name"]);
+    $fileType = mime_content_type($file["tmp_name"]);
+    $ext = pathinfo($originalName, PATHINFO_EXTENSION);
+    $filename = "$fileId.$ext";
+
+    if (!in_array(strtolower($ext), ["jpg","jpeg","png","gif","webp"])) {
+        err("invalid_file_type", "The file type '$ext' is not allowed", 400);
+    }
+
+    $uploadDir = __DIR__ . "/medias";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $targetPath = "$uploadDir/$filename";
+    if (!move_uploaded_file($file["tmp_name"], $targetPath)) {
+        err("upload_error", "Failed to move the uploaded file to the target directory", 500);
+    }
+
+    // results, affected rows, last insert id
+    [$r, $enb, $fid] = req("INSERT INTO medias (user_id, file_id, name, type) VALUES (:uid, :fid, :fname, :ftype)", array(
+        "uid"=> $uid,
+        "fid"=> $fileId,
+        "fname"=> $originalName,
+        "ftype"=> $ext
+    ));
+
+    if ($fid !== null) {
+        ok(array(
+            "file_id"=> $fileId,
+            "file_name"=> $originalName,
+            "file_type"=> $ext
+        ));
+    } else {
+        err("unknown_error", "Unknown Error", 500);
+    }
+}
+
+
+
+
+else if ($a == "medias") {
+    $uid = vtki($tk);
+
+    $r = req("SELECT file_id,name,type,upload_date FROM medias WHERE user_id=:uid ORDER BY upload_date DESC", array(
+        "uid"=> $uid
+    ))[0];
+
+    ok(array(
+        "medias"=> $r
+    ));
+}
+
+
+
+
+else if ($a == "media") {
+    [$fid] = mdtpi(["id"]);
+    $uid = vtki($tk);
+
+    $r = req("SELECT * FROM medias WHERE file_id=:fid AND user_id=:uid", array("fid"=> $fid, "uid"=> $uid))[0][0];
+
+    if ($r == null) {
+        err("file_not_found", "The requested file was not found", 404);
+    }
+
+    $filePath = __DIR__ . "/medias/" . $r['file_id'] . "." . $r['type'];
+
+    header("Content-Type: image/" . $r['type']);
+    header("Content-Length: " . filesize($filePath));
+    header("Content-Disposition: inline; filename=\"" . basename($originalName) . "\"");
+
+    readfile($filePath);
+    exit();
+}
+
 
 
 

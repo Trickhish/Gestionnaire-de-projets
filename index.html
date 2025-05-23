@@ -27,6 +27,8 @@
     <script src="pages/task.js"></script>
     <script src="pages/devis.js"></script>
     <script src="pages/devi.js"></script>
+    <script src="pages/medias.js"></script>
+    <link href="pages/medias.css" rel="stylesheet" />
     <link href="pages/clients.css" rel="stylesheet" />
 
     <script src="home.js"></script>
@@ -38,6 +40,9 @@
     <link href="res/favicon.png" rel="icon" />
     <!--<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 </head>
@@ -57,6 +62,7 @@
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="clients" class="sidebt"><i class="fa-solid fa-users"></i><span class="text"> Clients</span></button>
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="devis" class="sidebt"><i class="fa-solid fa-file-invoice"></i><span class="text"> Devis</span></button>
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="factures" class="sidebt"><i class="fa-solid fa-file-invoice-dollar"></i><span class="text"> Factures</span></button>
+            <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="medias" class="sidebt"><i class="fa-solid fa-images"></i><span class="text"> Medias</span></button>
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="finance" class="sidebt"><i class="fa-solid fa-sack-dollar"></i><span class="text"> Finance</span></button>
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="signature" class="sidebt" ><i class="fa-solid fa-file-signature"></i><span class="text"> Signatures</span></button>
             <button onauxclick="auxClick(event, this.id);" onclick="goTo(this.id);" id="rapport" class="sidebt"><i class="fa-solid fa-chart-simple"></i><span class="text"> Rapport</span></button>
@@ -450,6 +456,17 @@
         
         <section id="factures" data-title="Factures">
             
+        </section>
+
+        <section id="medias" data-title="Medias">
+            <div id="medias_ctn">             
+            </div>
+
+            <div id="upload_progress_ctn">
+            </div>
+            
+            <input style="display:none;" id="media_input" type="file" multiple="true" accept="image/*,video/*" />
+            <svg title="Ajouter un media" class="bradd" onclick="addmedia();" id="addmedia" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"></path> </g></svg>
         </section>
     
         <section id="finance" data-title="Finances">

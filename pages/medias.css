@@ -1,0 +1,116 @@
+
+section#medias {
+    flex-grow: 1;
+    position: relative;
+}
+
+#upload_progress_ctn {
+    display: none;
+    background-color: #1E1E2C;
+    position: absolute;
+    gap: 1rem;
+    bottom: 0;
+    left: 50%;
+    translate: -50%;
+    padding: 1rem;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+#upload_progress_ctn.active {
+    display: flex;
+}
+
+.upload_progress_bar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.upload_progress_bar_ctn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.upload_progress_bar {
+    height: 10px;
+    width: 18rem;
+    background-color: #30303f;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+.upload_progress_bar::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: var(--pct);
+    background-color: var(--main-color);
+    transition: all 0.2s ease-in-out;
+}
+
+#medias_ctn {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+#medias_ctn .media {
+    background-color: #1d1d29;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+#medias_ctn .media:hover {
+    
+}
+#medias_ctn .media:hover img {
+    scale:1.1;
+}
+
+#medias_ctn .media p {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    padding: .5rem 0;
+    backdrop-filter: blur(2px);
+    background-color: #00000040;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color:white;
+}
+
+#medias_ctn .media img {
+    aspect-ratio: 1 / 1;
+    height: 20rem;
+    object-fit: contain;
+    transition: scale .2s ease-in-out;
+}
+
+#medias_ctn .media .delmedia {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}

@@ -160,6 +160,11 @@ function loadHash() {
         }
     }
 
+    if (currentPage[0]==pg) {
+        console.log(`Already on page ${pg}`);
+        return;
+    }
+
     console.log(`Going to ${pg}`);
     if (!goTo(pg, false, params)) {
         //console.log("NAV FAILED");

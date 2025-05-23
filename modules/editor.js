@@ -5,7 +5,7 @@ function makeSortable(el) {
         group: "shared",
         animation: 150,
         fallbackOnBody: false,
-        sort:false,
+        sort:true,
         //swapThreshold: 0.65,
         emptyInsertThreshold: 5,
         dragoverBubble: true,
