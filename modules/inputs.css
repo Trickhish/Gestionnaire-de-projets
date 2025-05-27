@@ -87,3 +87,50 @@
 .ss_items > .option.filtered {
     display: none;
 }
+
+
+#media_select_ctn {
+    height: 50dvh;
+    width: 50dvw;
+    opacity: 1;
+    pointer-events: all;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+#media_select_ctn .media_ctn {
+    
+}
+
+#media_select_ctn .media {
+    aspect-ratio: 1 / 1;
+    height: 15rem;
+    overflow: hidden;
+    position: relative;
+    background-color: #2a2a3b;
+    border-radius: 1rem;
+    cursor:pointer;
+}
+
+#media_select_ctn .media:hover img {
+    scale: 1.1;
+}
+
+#media_select_ctn .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: scale .2s ease-in-out;
+}
+
+#media_select_ctn .media p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+    backdrop-filter: blur(2px);
+    background-color: #1e1e2cba;
+    padding: .3rem 0;
+}

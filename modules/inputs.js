@@ -119,6 +119,62 @@ function loadAllss() {
 
 
 
+/*
+     Media selection START
+*/
+
+function msOpen(ons=()=>{}, oncc=()=>{}) {
+    var msc = document.querySelector("#media_select_ctn");
+
+    if (msc!=null) {
+        console.log("dismissed");
+        msc.remove();
+    }
+
+    msc = document.createElement("modal");
+    msc.id = "media_select_ctn";
+    msc.className = "dismissible active delete";
+    msc.setAttribute("data-dndm", "#media_select_ctn");
+    document.body.appendChild(msc);
+
+    get("medias", {}, (r)=>{
+        var mctn = document.createElement("div");
+        mctn.className = "media_ctn";
+
+        mds = r["content"]["medias"];
+
+        for (let m of mds) {
+            var me = document.createElement("div");
+            me.className = "media";
+            me.setAttribute("data-fid", m.file_id);
+            me.innerHTML = `
+                <img src="/api/media?id=${m.file_id}" />
+                <p>${m.name}</p>
+            `;
+            me.addEventListener("click", (ev)=>{
+                ons(m.file_id);
+                enableScroll();
+                msc.remove();
+            });
+            mctn.appendChild(me);
+        }
+
+        msc.appendChild(mctn);
+    });
+
+    msc.addEventListener("dismissed", (e)=>{
+        enableScroll();
+        oncc();
+    });
+    disableScroll();
+}
+
+/*
+     Media selection END
+*/
+
+
+
 
 window.addEventListener("load", (lev)=>{
     loadAllss(); 

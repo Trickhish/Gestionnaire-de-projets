@@ -47,8 +47,24 @@ function addBlock(dt) {
     } else if (type == "image") {
         var ne = document.createElement("img");
         ne.setAttribute("data-type", type);
+        ne.setAttribute("data-mid", dt["mid"]??"");
         ne.className = "stb_item image";
-        ne.src = "/res/image_placeholder.jpg";
+        ne.src = dt["src"]; // "/res/image_placeholder.jpg"
+
+        rcb["Changer l'image"] = ()=>{
+            setTimeout(() => {
+                msOpen((mid)=>{
+                    ne.setAttribute("data-mid", mid);
+                    ne.src = `/api/media?id=${mid}`;
+                    var edt = getEditor(ne);
+                    if (edt!=null) {
+                        triggerEvent(edt, "change");
+                    }
+                }, ()=>{
+                    
+                });
+            }, 100);
+        };
     } else if (type == "text") {
         var ne = document.createElement("div");
         ne.setAttribute("data-type", type);
@@ -145,7 +161,6 @@ function stbSave(editor) {
 
 function loadBlock(el) {
     let ne = addBlock(el);
-    console.log(el);
     
     if (Object.keys(el).includes("children")) {
         el.children.forEach((child)=>{
@@ -160,7 +175,7 @@ function stbLoad(editor, data) {
     if (data==null) {
         return;
     }
-    console.log(data);
+    //console.log(data);
 
     removeAllChildren(editor);
 
@@ -175,36 +190,3 @@ function stbLoad(editor, data) {
         handleAdd(ne, editor);*/
     });
 }
-
-window.addEventListener("load", ()=>{
-    return;
-
-    // Palette
-    new Sortable(document.getElementById("palette"), {
-        group: { name: "shared", pull: "clone", put: false }, // Clone items
-        sort: false
-    });
-
-    // Editor
-    new Sortable(document.getElementById("editor"), {
-        group: "shared",
-        animation: 150,
-        fallbackOnBody: true,
-        swapThreshold: 0.65,
-        ghostClass: "ghost",
-        onAdd: function (evt) {
-            if (evt.from.id === "palette") {
-                handleAdd(evt.item, evt.to);
-            }
-        }
-    });
-
-    // Delete Area
-    new Sortable(document.getElementById("delete-area"), {
-        group: "shared",
-        onAdd: function (evt) {
-            evt.item.remove();
-        }
-    });
-});
-

@@ -4,7 +4,7 @@ function update_values(res) {
     var cl = res.value;
     var qid = cl["id"];
 
-    currentPage = ["devi", {"quote_id":qid, "client":cl["client_name"], "quote_titile":cl["title"]}];
+    currentPage = ["devi", {"quote_id":qid, "client":cl["client_name"], "quote_title":cl["title"]}];
     document.getElementById("section_title").innerText = cl.title ?? "unnamed";
 
     clients.updateThen((r)=>{
@@ -26,10 +26,7 @@ function update_values(res) {
 }
 
 function devi_nav(params) {
-    console.log("devi", params);
-
     var qid = params["quote_id"];
-    console.log(qid);
     var quote = quotes[qid];
 
     currentPage = ["devi", {"quote_id": qid}];
@@ -39,14 +36,14 @@ function devi_nav(params) {
             return(e);
         }, (r)=>{
             update_values(quote);
-            console.log(r);
+            //console.log(r);
         });
 
         quotes[qid] = quote;
     } else {
         quote.updateThen(()=>{
             update_values(quote);
-            console.log("updated");
+            //console.log("updated");
         });
     }
 }

@@ -61,6 +61,9 @@ function openRcMenu(bl) {
 
     var ce = rcMenu(bl);
     document.body.appendChild(ce);
+    ce.addEventListener("dismissed", (e)=>{
+        enableScroll();
+    });
     disableScroll();
 }
 

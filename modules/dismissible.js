@@ -46,6 +46,9 @@ function getAllDnDM(e) {
     }
 }
 
+function getDismissible() {
+    return(Array.from(document.querySelectorAll(".dismissible.active")));
+}
 
 window.onclick = function(e){
     var tg = e.target;
@@ -55,9 +58,13 @@ window.onclick = function(e){
     Array.from(document.querySelectorAll(".dismissible.active")).forEach((el)=>{
         if (!wtl.some((sel) => Array.from(document.querySelectorAll(sel)).includes(el))) { // el.classList.contains(cl)
             //console.log("wtl:", wtl);
+            var name = el.tagName + (el.id=="" ? (el.classList.length > 0 ? Array.from(el.classList).slice(0, 2).map(e=>`.${e}`).join("") : "") : "#" + el.id);
+            console.log(`${name} Dismissed`);
+
+            triggerEvent(el, "dismissed");
             if (el.classList.contains("delete")) {
                 el.remove();
-                enableScroll();
+                //enableScroll();
             } else {
                 el.classList.remove("active");
             }

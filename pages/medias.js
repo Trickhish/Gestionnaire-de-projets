@@ -86,8 +86,6 @@ function medias_load(params) {
     var ctn = document.querySelector("section#medias");
     var fslt = document.querySelector("section#medias #media_input");
 
-
-
     if (mediasR==null) {
         // file_id,name,type,upload_date
         
