@@ -87,6 +87,18 @@ table {
     --ctn-bd: #2b2b43;
     
     --subctn-color: #c1daf5;
+
+    --ss_bg:var(--main-color);
+    --ss_bd:#3a3a3a;
+    --ss_items_bg:#f3f3f3;
+    --ss_items_bd:#cecece;
+    --ss_active_item_bg: #bfd7f1;
+    --ss_active_item_bd: #4777b0;
+    --ss_option_hover_bg:#d0deee;
+    --ss_scrollbar:#404040 #21242a00;
+
+    --media_bg:#f3f3f3;
+    --media_shadow:0px 0 15px 0 #00000024;
 }
 
 [data-theme="dark"] {
@@ -119,6 +131,18 @@ table {
     --icon-bg: #415e81;
     --left-btns-color: #687e99;
     --subctn-color: #151a23;
+
+    --ss_bg:#21242a;
+    --ss_bd:#404040;
+    --ss_items_bg:#21242a;
+    --ss_items_bd:#404040;
+    --ss_active_item_bg:#272b33;
+    --ss_active_item_bd:#404040;
+    --ss_option_hover_bg:#2f2f2f;
+    --ss_scrollbar:#404040 #21242a00;
+
+    --media_bg:#1d1d29;
+    --media_shadow:none;
 }
 *:focus {
     outline:none;

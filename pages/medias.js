@@ -97,9 +97,7 @@ function medias_load(params) {
             var mctn = document.querySelector("section#medias #medias_ctn");
             removeAllChildren(mctn);
 
-            for (var m of r) {
-                console.log(m);
-                
+            for (let m of r) {                
                 var me = document.createElement("div");
                 me.className = "media";
                 me.innerHTML = `
@@ -108,6 +106,25 @@ function medias_load(params) {
                     <p>${m.name}</p>
                 `;
                 mctn.appendChild(me);
+
+                var delbtn = me.querySelector(".delmedia");
+                delbtn.addEventListener("click", (ev)=>{
+                    ev.stopPropagation();
+
+                    confirma(`Voulez-vous vraiment supprimer '${m.name}' ?`, ()=>{
+                        fetch(`/api/delmedia?id=${m.file_id}`, {method:"POST"})
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Media deleted:", data);
+                                mediasR.update();
+                            } else {
+                                console.error("Delete failed:", data.error);
+                            }
+                        })
+                        .catch(err => console.error("Error deleting media:", err));
+                    });
+                });
             }
         });
     } else {

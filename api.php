@@ -2,6 +2,7 @@
 
 const TK_EXP = 5;
 const MAX_RESULTS = 10;
+const MEDIA_PATH = __DIR__ . "/medias";
 
 $bdd = NULL;
 $dbg = !empty($_GET["dbg"]);
@@ -890,7 +891,7 @@ else if ($a == "media_upload") {$uid = vtki($tk);
         err("invalid_file_type", "The file type '$ext' is not allowed", 400);
     }
 
-    $uploadDir = __DIR__ . "/medias";
+    $uploadDir = MEDIA_PATH;
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -914,6 +915,44 @@ else if ($a == "media_upload") {$uid = vtki($tk);
             "file_name"=> $originalName,
             "file_type"=> $ext
         ));
+    } else {
+        err("unknown_error", "Unknown Error", 500);
+    }
+}
+
+
+
+
+
+else if ($a == "delmedia") {
+    [$fid] = mdtpi(["id"]);
+    $uid = vtki($tk);
+
+    [$r, $enb] = req("SELECT type FROM medias WHERE file_id=:fid AND user_id=:uid", array(
+        "fid"=> $fid,
+        "uid"=> $uid
+    ));
+
+    if (!$r) { // media does not exist
+        err("file_not_found", "The requested file was not found", 404);
+    }
+    $ext = $r[0]["type"];
+
+    [$r, $enb] = req("DELETE FROM medias WHERE file_id=:fid AND user_id=:uid", array(
+        "fid"=> $fid,
+        "uid"=> $uid
+    ));
+
+    if ($enb > 0) {
+        $filePath = MEDIA_PATH."/".$fid.".".$ext;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        } else {
+            ok([
+                "message"=> "The file was not found"
+            ]);
+        }
+        ok();
     } else {
         err("unknown_error", "Unknown Error", 500);
     }
