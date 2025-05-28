@@ -65,6 +65,14 @@ function addBlock(dt) {
                 });
             }, 100);
         };
+        rcb["Changer la taille"] = ()=>{
+            cbprompt("Changer la taille", [ // type, name, label, plhd, def
+                ["input", "height", "Entrer la hauteur", "Entrer la hauteur"],
+                ["input", "width", "Entrer la largeur", "Entrer la largeur"],
+            ], (val)=>{
+                console.log(val);
+            }, ()=>{});
+        };
     } else if (type == "text") {
         var ne = document.createElement("div");
         ne.setAttribute("data-type", type);
@@ -92,6 +100,13 @@ function addBlock(dt) {
         ne.setAttribute("data-type", type);
         ne.className = "stb_item";
     }
+
+    if (Object.keys(dt).includes("classes")) {
+        for (var cl of dt["classes"]) {
+            ne.classList.add(cl);
+        }
+    }
+
 
     rcb["Prendre tout l'espace"] = () => {
         ne.classList.toggle("edt-style-flexgrow");
@@ -151,6 +166,14 @@ function stbSave(editor) {
         } else if (type == "text") {
             e["text"] = el.innerText;
         }
+
+        var classes = [];
+        for (var k of Array.from(el.classList)) {
+            if (k.startsWith("edt-style")) {
+                classes.push(k);
+            }
+        }
+        e["classes"] = classes;
 
         for (var k of ["dir"]) {
             if (el.hasAttribute("data-"+k)) {

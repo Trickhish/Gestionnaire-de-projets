@@ -1,5 +1,5 @@
 var keyBinds = {};
-
+var lastPressedKey = null;
 
 function addKeyBind(key, mdfl, fct, id=null) {
     mdfl = mdfl.map((x) => x.toLowerCase());
@@ -61,20 +61,20 @@ function removeAllKeyBinds() {
     keyBinds = {};
 }
 
-window.addEventListener("keypress", (evt) => {
+window.addEventListener("keydown", (evt) => {
     const ctrl = evt.ctrlKey || evt.metaKey;
     const shift = evt.shiftKey;
     const alt = evt.altKey;
     const key = evt.key.toLowerCase();
 
-    console.log(key);
+    lastPressedKey = key;
 
     if (!Object.keys(keyBinds).includes(key)) {
         return;
     }
 
     let tg = evt.target;
-    if (["textarea", "input"].includes(tg.tagName.toLowerCase()) || tg.isContentEditable) {
+    if (!["enter"].includes(key) && (["textarea", "input"].includes(tg.tagName.toLowerCase()) || tg.isContentEditable)) {
         return;
     }
 

@@ -134,3 +134,31 @@
     background-color: #1e1e2cba;
     padding: .3rem 0;
 }
+
+
+
+#prompt_ctn {
+    opacity: 1;
+    width: max-content;
+    pointer-events: all;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+#prompt_ctn h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+#prompt_ctn button {
+    display: inline-block;
+    margin: 0;
+}
+#prompt_ctn .prompt_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}

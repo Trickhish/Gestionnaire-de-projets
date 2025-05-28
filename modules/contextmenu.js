@@ -43,7 +43,11 @@ function rcMenu(bl, rpl=null) {
             se.setAttribute("data-dndm", ".rcmenu");
             ce.appendChild(se);
         } else {
-            var bte = bt(b, 'cm_bt', bl[b]);
+            var bte = bt(b, 'cm_bt', ()=>{
+                setTimeout(()=>{
+                    bl[b]();
+                }, 10);
+            });
             //bte.setAttribute("data-dndm", ".rcmenu");
             ce.appendChild(bte);
         }

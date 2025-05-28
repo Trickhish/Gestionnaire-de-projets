@@ -175,6 +175,112 @@ function msOpen(ons=()=>{}, oncc=()=>{}) {
 
 
 
+/*
+    Prompt START
+*/
+
+function cbprompt(title, bd, okcb, cccb) {
+    var prompt = document.createElement("modal");
+    prompt.id = "prompt_ctn";
+    prompt.className = "dismissible active delete";
+    prompt.setAttribute("data-dndm", "#prompt_ctn");
+    prompt.innerHTML = `
+        <h2>${title}</h2>
+    `;
+
+    for (let el of bd) {
+        if (typeof el == "string") {
+            var p = document.createElement("p");
+            p.innerText = el;
+            prompt.appendChild(p);
+        } else {
+            let [type, name, label, plhd, def] = el;
+            if (type=="input") {
+                var p = document.createElement("label");
+                p.setAttribute("for", "prompt_input_"+name);
+                p.className = "prompt_label";
+                p.innerText = label;
+                prompt.appendChild(p);
+
+                var inp = document.createElement("input");
+                inp.placeholder = plhd;
+                inp.type = "text";
+                inp.value = def ?? "";
+                inp.name = name;
+                inp.id = "prompt_input_"+name;
+                inp.className = "prompt_input";
+                prompt.appendChild(inp);
+            } else if (type=="textarea") {
+
+            }
+        }
+    }
+
+    var btctn = document.createElement("div");
+    btctn.className = "prompt_buttons";
+    prompt.appendChild(btctn);
+
+    var ccbt = document.createElement("button");
+    ccbt.innerText = "Annuler";
+    btctn.appendChild(ccbt);
+    ccbt.addEventListener("click", (ev)=>{
+        cccb();
+        prompt.remove();
+    });
+
+    var okbt = document.createElement("button");
+    okbt.innerText = "Ok";
+    btctn.appendChild(okbt);
+    okbt.addEventListener("click", (ev)=>{
+        var values = {};
+        Array.from(prompt.querySelectorAll(".prompt_input")).forEach((inp)=>{
+            values[inp.name] = inp.value;
+        });
+
+        okcb(values);
+        prompt.remove();
+    });
+
+
+    addKeyBind("escape", [], (ev)=>{
+        enableScroll();
+        removeKeyBind("escape");
+        removeKeyBind("enter");
+        cccb();
+        prompt.remove();
+    });
+    addKeyBind("enter", [], (ev)=>{
+        enableScroll();
+        removeKeyBind("escape");
+        removeKeyBind("enter");
+
+        var values = {};
+        Array.from(prompt.querySelectorAll(".prompt_input")).forEach((inp)=>{
+            values[inp.name] = inp.value;
+        });
+
+        okcb(values);
+        prompt.remove();
+    });
+    prompt.addEventListener("dismissed", (e)=>{
+        enableScroll();
+        removeKeyBind("escape");
+        removeKeyBind("enter");
+        cccb();
+    });
+
+
+    document.body.appendChild(prompt);
+}
+
+/*
+    Prompt END
+*/
+
+
+
+
+
 
 window.addEventListener("load", (lev)=>{
     loadAllss(); 
