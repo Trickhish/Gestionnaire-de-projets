@@ -96,7 +96,7 @@
 }
 
 .stb_item.nested > .stb_item {
-    flex-grow: 1;
+    
 }
 
 .stb_ctn.editor {
@@ -136,4 +136,8 @@
 }
 .edt-style_h6 {
     font-size: 0.6rem;
+}
+
+.edt-style-flexgrow {
+    flex-grow: 1;
 }

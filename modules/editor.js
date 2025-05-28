@@ -93,6 +93,13 @@ function addBlock(dt) {
         ne.className = "stb_item";
     }
 
+    rcb["Prendre tout l'espace"] = () => {
+        ne.classList.toggle("edt-style-flexgrow");
+        var edt = getEditor(ne);
+        if (edt!=null) {
+            triggerEvent(edt, "change");
+        }
+    };
     rcb["Supprimer"] = () => {
         console.log(ne, getEditor(ne));
 
@@ -153,8 +160,6 @@ function stbSave(editor) {
 
         data.push(e);
     });
-
-    console.log(data);
 
     return(data);
 }
