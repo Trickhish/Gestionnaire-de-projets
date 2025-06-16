@@ -99,7 +99,14 @@
 }
 
 #media_select_ctn .media_ctn {
-    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
 }
 
 #media_select_ctn .media {
