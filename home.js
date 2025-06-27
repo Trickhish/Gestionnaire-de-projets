@@ -22,14 +22,18 @@ function switchSidebar() {
     }
 }
 
+var lastGoto = null;
 function goTo(page, rw=true, params={}) {
+    if (lastGoto!=null && (Date.now()-lastGoto < 200)) {
+        return;
+    }
+    lastGoto = Date.now();
+
     if (!document.querySelector("section#"+page)) {
         return(subSection(page, params));
     } else if (document.querySelector("section#"+page).classList.contains("active")) {
-        //console.log("aborting nav");
         return(true);
     }
-    //console.log("GOING TO -> ",page,params);
 
     if (rw) {
         window.location.hash = page;
@@ -141,7 +145,14 @@ function logout() {
     window.location.href = "/login#red="+urlf(window.location.pathname + window.location.hash);
 }
 
-function loadHash() {
+var lastHashLoad = null;
+function loadHash(ev=null) {
+    //console.log(ev);
+    if (lastHashLoad!=null && (Date.now()-lastHashLoad < 200)) {
+        return;
+    }
+    lastHashLoad = Date.now();
+
     var h = window.location.hash;
 
     if (h=='') {
@@ -161,26 +172,26 @@ function loadHash() {
     }
 
     if (currentPage[0]==pg) {
-        console.log(`Already on page ${pg}`);
+        //console.log(`Already on page ${pg}`);
         return;
     }
 
-    console.log(`Going to ${pg}`);
+    console.log(`[HASH]: Going to ${pg}`);
     if (!goTo(pg, false, params)) {
         //console.log("NAV FAILED");
         goTo("accueil");
     }
 }
 
-window.addEventListener("load", ()=>{
-    loadHash();
+window.addEventListener("load", (event)=>{
+    loadHash(event);
 });
 
 window.addEventListener("hashchange", (event) => {
     //console.log("HASH CHANGE -> ",window.location.hash);
-    loadHash();
+    loadHash(event);
 });
 window.addEventListener("popstate", (event) => {
     //console.log("HASH CHANGE -> ",window.location.hash);
-    loadHash();
+    loadHash(event);
 });

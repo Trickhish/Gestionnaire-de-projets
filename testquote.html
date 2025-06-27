@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<style>
+    @media print {
+        @page {
+            size: A4 portrait; /* Set the paper size to A4 */
+            margin: 0; /* Adjust the margins as needed */
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        html {
+            background-color: white;
+        }
+    }
+
+    @font-face {
+        font-family:arial;
+        src:url("res/arial.ttf");
+    }
+
+    @page {
+        margin: 0;
+    }
+
+    html {
+        background-color: black;
+    }
+
+    body {
+        margin: 0;
+        print-color-adjust: exact;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        aspect-ratio: 21/29.7;
+        width: 210mm;
+        height: 296mm;
+        background-color: white;
+        aspect-ratio: 21/29.7;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        overflow-x: clip;
+
+        font-family:candara;
+        margin: 0 auto;
+    }
+
+    td, tr, th, tbody {
+        border:none;
+        border-bottom: dashed 2px #c9c9c9;
+        height: 1.9em;
+        font-size: 1em;
+    }
+
+    td {
+        text-align:center;
+    }
+
+    .article {
+        text-align:left;
+        width: 90%;
+    }
+
+    .article.cat {
+        border: none;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin: 0;
+        padding: 0;
+        height: max-content;
+        display: block;
+        margin-top: 32px;
+    }
+
+    .article.opt {
+        color: #7f7f7f;
+        /*padding-left: 15px;*/
+    }
+    .article.opt::before {
+        content: '+ ';
+        color: #7f7f7f;
+    }
+
+    .montant {
+        text-align:right;
+    }
+
+    #ctn_ {
+        height: 100vh;
+        aspect-ratio: 21/29.7;
+        width: 70.7vh;
+        overflow: hidden;
+        margin-left: calc(50% - 35.35vh);
+    }
+
+    #banq {
+        font-size: 1.5em;
+        width: 100%;
+        margin-top: 3em;
+    }
+</style>
+
+<title> FAC2506001_lys_de_france </title>
+
+<body onload="window.onafterprint = function(){window.close();};" style="background-color:white;font-family:arial;color:#484848;font-weight:400;">
+    <div id=ctn>
+    <div style="margin:0;padding:0;width:100%;height:5px;top:0;left:0;background-color:#EFBF84;"></div>
+
+
+
+    <div style="position:relative;top:50px;left:80px;width:max-content;">
+        <img src="res/renova.png" style="height:13em;margin-bottom: 25px;" />
+
+        <h1 style="display:inline-block;font-size:1.2em;font-weight:400;width: max-content;top: 14px;right: -22px; transform: translateX(100%);">
+            <span style="font-weight:bold;font-size:1.5em;" >Charles-Ivan DURY</span><br/>
+            <p style="font-size: 0.7em;font-weight: bold;margin:0;padding:0;">ENTREPRENEUR INDIVIDUEL</p><br/>
+
+            <span style="font-weight:bold;">N° SIREN : </span> 915346431<br/>
+            33 RUE BAUDELAIRE<br/>
+            VOISINS-LE-BRETONNEUX<br/>
+            78960<br/>
+            <a style="text-decoration:underline;color:#484848;text-decoration-color:#484848;margin: 7px 0 0 0;display:block;padding:0;" target="blank" href="http://renova.dury.dev">renova.dury.dev</a>
+                                <a style="text-decoration:underline;color:#484848;text-decoration-color:#484848;" href="mailto:renova@dury.dev">renova@dury.dev</a>
+        </h1>
+    </div>
+
+    <div style="width:max-content;top:50px;right:80px;font-size:1.4em;">
+        <p style="text-align:right;">
+            <b>FACTURE</b><br/>
+            FAC2506001<br/><br/>
+
+            <b>DATE</b><br/>
+            27 juin. 2025<br/><br/>
+
+            <b>DATE D'ÉCHÉANCE</b><br/>
+            Dû à réception<br/><br/>
+
+            <b>SOLDE DÛ</b><br/>
+            EUR 19 €
+        </p>
+    </div>
+    <div style="transform:translateY(83px);left:105px;">
+        
+
+        <div style="margin:0;padding:0;width: calc(100vw - 184px);height:2px;left:105px;background-color: #bbbbbb;"></div>
+
+        <p style="font-size:1.4em;line-height: 1.5em;">
+            <b style="vertical-align: text-bottom;">ADRESSE DE FACTURATION</b><br/>
+
+            <b style="font-size:1.5em;line-height: calc(1.5em + 5px);">Lys de France</b><br/>
+            BP 80 434, 75327 Paris Cedex 07
+        </p>
+
+        <div style="width: calc(100vw - 184px);left:105px;margin:38px 0 0 0;padding:0;font-size: 1.5em;">
+
+            <table cellspacing="0" style="width:100%;padding:0;margin:0;font-size: 1em;">
+                    <!--<div style="margin:0;padding:0;height:2px;width:100%;background-color: black;"></div>-->
+
+                    <tr>
+                        <th class="article" style="border-top: solid 2px #000000; border-bottom: solid 2px #000000;height: 2.3em;">Objet</th>
+                        <th class="montant" style="border-top: solid 2px #000000; border-bottom: solid 2px #000000;height: 2.3em;">Montant</th>
+                    </tr>
+
+                    <tr>
+            <td class='article'  >Newsletter du 12/05</td>
+            <td class='montant'  >15 €</td>
+        </tr><tr>
+            <td class='article' style='border-bottom: solid 2px #878787;' >Newsletter du 17/05</td>
+            <td class='montant' style='border-bottom: solid 2px #878787;' >5 €</td>
+        </tr>
+            </table>
+
+            <!--<table cellspacing="0" style="width:50%;padding:0;margin:0;font-size: 1em;margin-left:50%;">
+                <tr>
+                    <th class="" style="text-align:left; border-bottom: solid 2px #878787;">TOTAL</th>
+                    <th class="" style="text-align:right; border-bottom: solid 2px #878787;"> 14.46 €</th>
+                </tr>
+
+                <tr>
+                    <th class="" style="text-align:left; border-bottom: solid 2px #878787;height: 2.3em;">SOLDE DÛ</th>
+                    <th class="" style="text-align:right; border-bottom: solid 2px #878787;height: 2.3em;">EUR 14.46 €</th>
+                </tr>
+            </table>-->
+
+
+            <table cellspacing="0" style="width:50%;padding:0;margin:0;font-size: 1em;margin-left:50%;">
+                
+
+                <tr>
+                    <th class="" style="text-align:left; border-bottom: solid 2px #878787;">TOTAL</th>
+                    <th class="" style="text-align:right; border-bottom: solid 2px #878787;"> 19 €</th>
+                </tr>
+            </table>
+
+            <p style="text-align:right;width:100%;margin:10px 0 0 0;padding:0;">« TVA non applicable, art. 293 B du CGI »</p>
+
+            <div style="text-align:right;width:100%;margin-top:2em;">
+                <img src="res/sign.png" style="height:3.5em;margin-right:2em;" />
+                <p><b>DATE DE SIGNATURE<br/> 27 juin. 2025 </b></p>
+            </div>
+        </div>
+
+        <h1 id="banq"> IBAN : FR56 2004 1010 1255 4702 8U03 352</h1>
+    </div>
+    </div>
+
+
+</body>

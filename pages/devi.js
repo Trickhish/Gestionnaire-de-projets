@@ -7,6 +7,13 @@ function update_values(res) {
     currentPage = ["devi", {"quote_id":qid, "client":cl["client_name"], "quote_title":cl["title"]}];
     document.getElementById("section_title").innerText = cl.title ?? "unnamed";
 
+    var section = document.querySelector("subsection#devi");
+    var qnm_bd = new bondInput(section.querySelector("#quote_title"), qid, "quote", "title");
+    var qdesc_bd = new bondInput(section.querySelector("#quote_desc"), qid, "quote", "description");
+    var qsgn_bd = new bondInput(section.querySelector("#quote_signed"), qid, "quote", "signed");
+
+    var qedt_bd = new bondInput(section.querySelector(".editor"), qid, "quote", "disposition");
+
     clients.updateThen((r)=>{
         var items=[];
         for (e of r) {
@@ -16,13 +23,6 @@ function update_values(res) {
 
         var qcl_bd = new bondInput(section.querySelector("#quote_client"), qid, "quote", "client_id");
     });
-
-    var section = document.querySelector("subsection#devi");
-    var qnm_bd = new bondInput(section.querySelector("#quote_title"), qid, "quote", "title");
-    var qdesc_bd = new bondInput(section.querySelector("#quote_desc"), qid, "quote", "description");
-    var qsgn_bd = new bondInput(section.querySelector("#quote_signed"), qid, "quote", "signed");
-
-    var qedt_bd = new bondInput(section.querySelector(".editor"), qid, "quote", "disposition");
 }
 
 function devi_nav(params) {
